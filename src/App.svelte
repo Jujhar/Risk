@@ -19,6 +19,10 @@
     selection = [];
   }
 
+  function doneSetup() {
+    this.parentElement.style.display = 'none';
+  }
+
   function move() {
     if (turnCount > 0 && this.childNodes.length == 0) {
       selection.forEach(item=>{
@@ -29,7 +33,6 @@
       selection = [];
     }
   }
-
 </script>
 
 <!--<svelte:window on:keydown={handleKeydown}/>-->
@@ -37,22 +40,44 @@
 <html data-theme="retro" lang="en">
 <body>
 
+<!-- Start screen -->
+<div id="setup_menu">
+  <h1><b>Game Setup</b></h1>
+  <br>
+  <input type="radio" id="age1" name="age" value="30" checked>
+  <label for="age1">vs computer &nbsp;</label>
 
-  <!-- start screen -->
-  <!-- vs computer
-  vs human
+  <input type="radio" id="age2" name="age" value="60">
+  <label for="age2">vs human</label><br>
 
- starting units
- 40
+  <br>
+  Starting unit pts. - remaining units
+  <br>
 
- starting generals
- starting infantry
- starting artillery -->
+  <input value="40" step="2" type="number" class="setup_input">
+  <input style="background-color: #577ea1;" value="0" type="number" class="setup_input" disabled>
+  <br>
+  <br>
+  <br>
 
+  <input value="1" type="number" class="setup_input">&nbsp;&nbsp;Starting generals (10 pts)
+  <br />
 
+  <input value="1" type="number" class="setup_input">&nbsp;&nbsp;Starting infantry (5 pts)
+  <br />
 
+  <input value="25" type="number" class="setup_input">&nbsp;&nbsp;Starting units (1 pt)
+  <br>
+  <br>
 
-  <h1>Risk!</h1>
+  <button
+    style="border: 1px solid goldenrod; padding: 2px;margin: 4px; width: 80px"
+    on:click={doneSetup}>
+    Done
+  </button>
+</div>
+<!-- start screen -->
+
 
   <!-- <div style="position: absolute; left:200px; top:390px;">
   <img src="general.webp" width=100 />
@@ -157,5 +182,24 @@ body {
 
 .clickable {
   cursor: pointer;
+}
+
+#setup_menu {
+  position: fixed;
+  width: 800px;
+  top: 10%;
+  right: 10%;
+  background-color: #65c365;
+  padding: 50px;
+  text-align: center;
+  z-index: 20;
+}
+
+.setup_input {
+  background-color: aliceblue;
+  min-width: 37px;
+  max-width: 60px;
+  text-align: center;
+  font-size: 2em;
 }
 </style>
