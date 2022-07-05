@@ -7,6 +7,16 @@
   let selectionTerritory = 'x';
   let selection = [];
 
+  let unitsSetStart = 40;
+  let generalsStart = 1;
+  let artilleryStart = 1;
+  let infantryStart = 25;
+  let setup_error = " "
+
+  $: totalStartingUnits = unitsSetStart -
+                          infantryStart - (artilleryStart * 5)
+                          - (generalsStart * 10);
+
   function handleClick() {
     this.style.backgroundColor = 'green'
     selection.push(this);
@@ -20,7 +30,16 @@
   }
 
   function doneSetup() {
-    this.parentElement.style.display = 'none';
+    if (totalStartingUnits == 0) {
+      setup_error = ' ';
+      this.parentElement.style.display = 'none';
+    } else {
+      if (totalStartingUnits > 0) {
+        setup_error = 'Please use all available units';
+      } else {
+        setup_error = 'Please increase starting units';
+      }
+    }
   }
 
   function move() {
@@ -51,22 +70,28 @@
   <label for="age2">vs human</label><br>
 
   <br>
-  Starting unit pts. - remaining units
+  Starting units - remaining units pts.
   <br>
 
-  <input value="40" step="2" type="number" class="setup_input">
-  <input style="background-color: #577ea1;" value="0" type="number" class="setup_input" disabled>
+
+
+  <input bind:value={unitsSetStart} step="2" type="number" class="setup_input">
+  <input style="background-color: #577ea1;" bind:value={totalStartingUnits} type="number" class="setup_input" disabled>
+  {#if setup_error != ' '}
+    <span class="star_error">❊</span>
+  {/if}
+
   <br>
   <br>
   <br>
 
-  <input value="1" type="number" class="setup_input">&nbsp;&nbsp;Starting generals (10 pts)
+  <input bind:value={generalsStart} type="number" class="setup_input">&nbsp;&nbsp;Starting generals (10 pts)
   <br />
 
-  <input value="1" type="number" class="setup_input">&nbsp;&nbsp;Starting infantry (5 pts)
+  <input bind:value={artilleryStart} type="number" class="setup_input">&nbsp;&nbsp;Starting artillery (5 pts)
   <br />
 
-  <input value="25" type="number" class="setup_input">&nbsp;&nbsp;Starting units (1 pt)
+  <input bind:value={infantryStart} type="number" class="setup_input">&nbsp;&nbsp;Starting units (1 pt)
   <br>
   <br>
 
@@ -75,6 +100,10 @@
     on:click={doneSetup}>
     Done
   </button>
+  <br>
+  <br>
+  <em style="color:green; text-shadow: 2px -4px 10px #faffb5;">{setup_error}</em>
+  <br>
 </div>
 <!-- start screen -->
 
@@ -198,8 +227,14 @@ body {
 .setup_input {
   background-color: aliceblue;
   min-width: 37px;
-  max-width: 60px;
+  max-width: 64px;
   text-align: center;
   font-size: 2em;
+}
+
+.star_error {
+  color: #faffb5;
+  font-size: 2em;
+  font-weight: bolder;
 }
 </style>
