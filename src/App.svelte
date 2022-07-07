@@ -7,15 +7,22 @@
   let selectionTerritory = 'x';
   let selection = [];
 
+  let localPlay = false;
   let unitsSetStart = 40;
   let generalsStart = 1;
   let artilleryStart = 1;
   let infantryStart = 25;
+  let generalsStartP2 = 1;
+  let artilleryStartP2 = 1;
+  let infantryStartP2 = 25;
   let setup_error = " "
 
   $: totalStartingUnits = unitsSetStart -
-                          infantryStart - (artilleryStart * 5)
-                          - (generalsStart * 10);
+    infantryStart - (artilleryStart * 5)
+    - (generalsStart * 10);
+
+  $: totalStartingUnitsP2 = infantryStartP2 + (artilleryStartP2 * 5)
+    + (generalsStartP2 * 10);
 
   function handleClick() {
     this.style.backgroundColor = 'green'
@@ -63,11 +70,11 @@
 <div id="setup_menu">
   <h1><b>Game Setup</b></h1>
   <br>
-  <input type="radio" id="age1" name="age" value="30" checked>
+  <input bind:group={localPlay} value={false} type="radio" name="age" checked>
   <label for="age1">vs computer &nbsp;</label>
 
-  <input type="radio" id="age2" name="age" value="60">
-  <label for="age2">vs human</label><br>
+  <input bind:group={localPlay} name="scoops" value={true} type="radio">
+  <label for="age2">vs local</label><br>
 
   <br>
   Starting units - remaining units pts.
@@ -75,7 +82,8 @@
 
 
 
-  <input bind:value={unitsSetStart} step="2" type="number" class="setup_input">
+  <input bind:value={unitsSetStart} step="2" type="number" class="setup_input"
+        min='0' >
   <input style="background-color: #577ea1;" bind:value={totalStartingUnits} type="number" class="setup_input" disabled>
   {#if setup_error != ' '}
     <span class="star_error">❊</span>
@@ -85,15 +93,55 @@
   <br>
   <br>
 
-  <input bind:value={generalsStart} type="number" class="setup_input">&nbsp;&nbsp;Starting generals (10 pts)
+  <input bind:value={generalsStart}
+    type="number"
+    class="setup_input"
+    min='0'>&nbsp;&nbsp;Starting generals (10 pts)
   <br />
 
-  <input bind:value={artilleryStart} type="number" class="setup_input">&nbsp;&nbsp;Starting artillery (5 pts)
+  <input bind:value={artilleryStart}
+    type="number"
+    class="setup_input"
+    min='0'>&nbsp;&nbsp;Starting artillery (5 pts)
   <br />
 
-  <input bind:value={infantryStart} type="number" class="setup_input">&nbsp;&nbsp;Starting units (1 pt)
+  <input bind:value={infantryStart}
+    type="number"
+    class="setup_input"
+    min='0'>&nbsp;&nbsp;Starting infantry (1 pt)
   <br>
   <br>
+
+  {#if localPlay == true}
+    <div class="P2box">
+      <br />
+      <b style="text-shadow: rgb(124 34 34 / 28%) 2px -1px 2px">
+        Player 2 &nbsp;(<em>{totalStartingUnitsP2}</em> pts.)
+      </b>
+      <br />
+      <br />
+      <input bind:value={generalsStartP2}
+        type="number"
+        class="setup_input"
+        min='0'><b>&nbsp;&nbsp;Starting generals</b>
+      <br />
+
+      <input bind:value={artilleryStartP2}
+        type="number"
+        class="setup_input"
+        min='0'><b>&nbsp;&nbsp;Starting artillery</b>
+      <br />
+
+      <input bind:value={infantryStartP2}
+        type="number"
+        class="setup_input"
+        min='0'><b>&nbsp;&nbsp;Starting infantry</b>
+      <br>
+      <br>
+    </div>
+    <br />
+    <br />
+  {/if}
 
   <button
     style="border: 1px solid goldenrod; padding: 2px;margin: 4px; width: 80px"
@@ -116,6 +164,7 @@
   <div style="position: absolute; left:200px; top:690px;">
   <big><big style="font-size: 4em;">{turnCount}</big></big><br />
   <span on:click={deSelect} class="clickable">🚫 Deselect Units</span>
+  {localPlay}
   </div>
 
   <!-- Regions -->
@@ -236,5 +285,19 @@ body {
   color: #faffb5;
   font-size: 2em;
   font-weight: bolder;
+}
+
+.P2box {
+  background-color: #ffcf95;
+  margin-left:-50px;
+  margin-right:-50px;
+  opacity: 0.6;
+  color: cornsilk;
+  text-shadow: rgb(124 34 34 / 8%) 2px -1px 2px;
+  margin-bottom: -21px;
+}
+
+.P2box input {
+  color: #44002eb5;
 }
 </style>
