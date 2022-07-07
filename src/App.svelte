@@ -123,19 +123,19 @@
       <input bind:value={generalsStartP2}
         type="number"
         class="setup_input"
-        min='0'><b>&nbsp;&nbsp;Starting generals</b>
+        min='0'><b>&nbsp;&nbsp;Starting generals - 10</b>
       <br />
 
       <input bind:value={artilleryStartP2}
         type="number"
         class="setup_input"
-        min='0'><b>&nbsp;&nbsp;Starting artillery</b>
+        min='0'><b>&nbsp;&nbsp;Starting artillery - 5</b>
       <br />
 
       <input bind:value={infantryStartP2}
         type="number"
         class="setup_input"
-        min='0'><b>&nbsp;&nbsp;Starting infantry</b>
+        min='0'><b>&nbsp;&nbsp;Starting infantry - 1</b>
       <br>
       <br>
     </div>
