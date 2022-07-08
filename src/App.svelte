@@ -25,8 +25,11 @@
     + (generalsStartP2 * 10);
 
   function handleClick() {
-    this.style.backgroundColor = 'green'
-    selection.push(this);
+    if (selectionTerritory == 'x' || selectionTerritory == this.parentElement.id) {
+      selectionTerritory = this.parentElement.id
+      this.style.backgroundColor = 'green'
+      selection.push(this);
+    }
 	}
 
   function deSelect() {
@@ -34,6 +37,7 @@
       item.style.backgroundColor = '';
     })
     selection = [];
+    selectionTerritory = 'x';
   }
 
   function doneSetup() {
@@ -50,13 +54,16 @@
   }
 
   function move() {
-    if (turnCount > 0 && this.childNodes.length == 0) {
+      if (turnCount > 0 
+        && selection.length > 0
+        && (this.childNodes.length == 0 || (selectionTerritory != this.id || selectionTerritory == 'x'))) {
       selection.forEach(item=>{
         item.style.backgroundColor = '';
         this.appendChild(item);
       })
       turnCount--;
       selection = [];
+      selectionTerritory = 'x';
     }
   }
 </script>
