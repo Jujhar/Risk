@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   onMount(() => {
+    window.scrollTo(400,1000);
   })
 
   let turnCount = 3;
@@ -44,6 +45,7 @@
     if (totalStartingUnits == 0) {
       setup_error = ' ';
       this.parentElement.style.display = 'none';
+      document.getElementById('starting_turn').style.display = 'inherit';
     } else {
       if (totalStartingUnits > 0) {
         setup_error = 'Please use all available units';
@@ -53,8 +55,12 @@
     }
   }
 
+  function turnRole() {
+    this.parentElement.style.display = 'none';
+  }
+
   function move() {
-      if (turnCount > 0 
+      if (turnCount > 0
         && selection.length > 0
         && (this.childNodes.length == 0 || (selectionTerritory != this.id || selectionTerritory == 'x'))) {
       selection.forEach(item=>{
@@ -144,7 +150,7 @@
   {/if}
 
   <button
-    style="border: 1px solid goldenrod; padding: 2px;margin: 4px; width: 80px"
+    class="button"
     on:click={doneSetup}>
     Done
   </button>
@@ -154,6 +160,20 @@
   <br>
 </div>
 <!-- start screen -->
+
+<!-- Starting turn -->
+<div id="starting_turn">
+  <h1><b>
+  {#if !localPlay}
+    Roll dice to start
+  {:else}
+    Player 1 roll dice
+  {/if}
+  </b></h1>
+  <br />
+  <button class="button" on:click={turnRole}>Roll</button>
+</div>
+<!-- starting turn -->
 
 
   <!-- <div style="position: absolute; left:200px; top:390px;">
@@ -390,10 +410,29 @@ body {
   cursor: pointer;
 }
 
+.button {
+  border: 1px solid goldenrod;
+  padding: 2px;
+  margin: 4px;
+  width: 80px
+}
+
 #setup_menu {
   position: fixed;
   width: 800px;
   top: 10%;
+  right: 10%;
+  background-color: #65c365;
+  padding: 50px;
+  text-align: center;
+  z-index: 20;
+}
+
+#starting_turn {
+  display: none;
+  position: fixed;
+  width: 800px;
+  top: 22%;
   right: 10%;
   background-color: #65c365;
   padding: 50px;
