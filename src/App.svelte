@@ -1,4 +1,5 @@
 <script>
+  import Dice from './Dice.svelte';
   import { onMount } from 'svelte';
   onMount(() => {
     window.scrollTo(400,1000);
@@ -57,6 +58,7 @@
 
   function turnRole() {
     this.parentElement.style.display = 'none';
+    document.getElementById('dice_roll').style.display = 'inherit';
   }
 
   function move() {
@@ -174,6 +176,13 @@
   <button class="button" on:click={turnRole}>Roll</button>
 </div>
 <!-- starting turn -->
+
+<!-- Dice roll -->
+<div id="dice_roll">
+  <Dice />
+  <br />
+</div>
+<!-- Dice roll -->
 
 
   <!-- <div style="position: absolute; left:200px; top:390px;">
@@ -435,6 +444,18 @@ body {
   top: 22%;
   right: 10%;
   background-color: #65c365;
+  padding: 50px;
+  text-align: center;
+  z-index: 20;
+}
+
+#dice_roll {
+  display: none;
+  position: fixed;
+  width: 800px;
+  top: 22%;
+  right: 10%;
+  background-color: #65c365de;
   padding: 50px;
   text-align: center;
   z-index: 20;
