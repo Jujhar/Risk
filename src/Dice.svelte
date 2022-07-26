@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+
   onMount(() => {
   })
 
@@ -74,12 +75,14 @@
         if (state == 'none') {
           document.getElementById('none').innerHTML = "1";
           result = 'You rolled 1';
+          die = 1;
           document.getElementById(state).classList.add('selected')
         }
 
         else {
           document.getElementById(state).classList.add('selected')
           result = 'You rolled ' + document.getElementById(state).childNodes[0].innerHTML;
+          die = parseInt(document.getElementById(state).childNodes[0].innerHTML);
         }
 
       }, 1600);
@@ -99,7 +102,7 @@
       }
 
       //                                                         ██████
-      //                                                     ████░░░░░░████      
+      //                                                     ████░░░░░░████
       //                                                   ██░░░░░░░░░░    ██
       //                                                 ██░░░░██████████░░  ██
       //                                                 ██░░░░██      ██░░  ██
@@ -148,6 +151,9 @@
       boxDown = 6;
     }
   }
+
+  export let die;
+
 </script>
 
 <svelte:window on:keydown={handleKeydown}/>

@@ -179,7 +179,7 @@
 
 <!-- Dice roll -->
 <div id="dice_roll">
-  <Dice />
+  <Dice bind:die={turnCount} />
   <br />
 </div>
 <!-- Dice roll -->
