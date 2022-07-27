@@ -1,5 +1,6 @@
 <script>
   import Dice from './Dice.svelte';
+  import DiceComputer from './DiceComputer.svelte';
   import { onMount } from 'svelte';
   onMount(() => {
     window.scrollTo(400,1000);
@@ -180,6 +181,13 @@
 <!-- Dice roll -->
 <div id="dice_roll">
   <Dice bind:die={turnCount} />
+  <br />
+</div>
+<!-- Dice roll -->
+
+<!-- Dice roll -->
+<div id="dice_roll_p2">
+  <DiceComputer bind:die={turnCount} computer='true' />
   <br />
 </div>
 <!-- Dice roll -->
@@ -426,6 +434,13 @@ body {
   width: 80px
 }
 
+.button:active {
+  padding: -20px;
+  border-radius: 50px 20px;
+  border: 1px solid white;
+  color: silver;
+}
+
 #setup_menu {
   position: fixed;
   width: 800px;
@@ -450,6 +465,18 @@ body {
 }
 
 #dice_roll {
+  display: none;
+  position: fixed;
+  width: 800px;
+  top: 22%;
+  right: 10%;
+  background-color: #65c365de;
+  padding: 50px;
+  text-align: center;
+  z-index: 20;
+}
+
+#dice_roll_p2 {
   display: none;
   position: fixed;
   width: 800px;

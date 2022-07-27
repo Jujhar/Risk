@@ -1,7 +1,10 @@
 <script>
   import { onMount } from 'svelte';
+  import { fade } from 'svelte/transition';
 
+  let computerRoll = 1;
   onMount(() => {
+    computerRoll = Math.floor(Math.random() * 4) + 1;
   })
 
   let key;
@@ -89,6 +92,11 @@
       }, 1600);
     }
 
+    if (keyCode == 32 && result != initial) {
+      document.getElementById('dice_roll').style.display = 'none';
+      document.getElementById('dice_roll_p2').style.display = 'inherit';
+    }
+
     // Choose key - ← > ^ ↓
       if (keyCode == 39){
         state = 'right';
@@ -162,6 +170,39 @@
 <html data-theme="retro" lang="en">
 <body>
 
+{#if computer}
+<div id="computer">
+<br />
+<br />
+{#if parseInt(computerRoll) > parseInt(result.slice(result.length - 1))}
+  <h2>The computer is rolling..</h2>
+{:else}
+  <h2>The computer rolled {computerRoll}.</h2>
+{/if}
+<br />
+<br />
+{#if parseInt(computerRoll) > parseInt(result.slice(result.length - 1))}
+  <h2 class="fade-in-image">The computer beat you by rolling {computerRoll}.</h2>
+{:else if parseInt(computerRoll) == parseInt(result.slice(result.length - 1))}
+  <h2 class="fade-in-image">Draw.</h2>
+{:else}
+  <h2 class="fade-in-image">You won by rolling {result.slice(result.length - 1)}.</h2>
+{/if}
+
+<br />
+<br />
+<br />
+{#if computerRoll > parseInt(result.slice(result.length - 1))}
+  <h2 class="fade-in-image-2">He will place the first piece</h2>
+{:else if parseInt(result.slice(result.length - 1)) == computerRoll}
+  <h2 class="fade-in-image-2">You place the first piece.</h2>
+{:else}
+  <h2 class="fade-in-image-2">You will place the first piece.</h2>
+{/if}
+
+</div>
+{/if}
+
 {#if rollActive}
   <div style="position: absolute;right:100px;top:100px;">
   <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
@@ -223,10 +264,6 @@
     </div>
 </div>
 
-<div class="text-center text-white" style="padding-top: 1%;padding-bottom: 1%;padding-left: 32%;">
-  {result}
-<div>
-
 </body>
 </html>
 
@@ -239,7 +276,7 @@
 }
 
 body {
-  background-color: #ac6b29;
+  background-color: #be9706;
 }
 .sq {
   border: 2px solid #A6C7BE;width:85px;
@@ -247,10 +284,11 @@ body {
   text-align: center;
 }
 #computer {
+  color: white;
   position: absolute;
   height: 300px;
   top: 96px;
-  background-color: aquamarine;
+  background-color: #be9706;
   width: 700px;
 }
 :global(.selected) {
@@ -296,4 +334,62 @@ body {
   }
 }
 /* loader */
+
+/* You won result text */
+.fade-in-image {
+  animation: fadeIn 5s;
+  -webkit-animation: fadeIn 5s;
+  -moz-animation: fadeIn 5s;
+  -o-animation: fadeIn 5s;
+  -ms-animation: fadeIn 5s;
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-moz-keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-webkit-keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-o-keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-ms-keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.fade-in-image-2 {
+  animation: fadeIn 7s;
+  -webkit-animation: fadeIn 7s;
+  -moz-animation: fadeIn 7s;
+  -o-animation: fadeIn 7s;
+  -ms-animation: fadeIn 7s;
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-moz-keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-webkit-keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-o-keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-ms-keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+/* you won result */
+
 </style>
