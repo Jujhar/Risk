@@ -1,4 +1,6 @@
 <script>
+  /* Need to refractor this page, remove everything but result read and computer roll display */
+
   import { onMount } from 'svelte';
   import { fade } from 'svelte/transition';
 
@@ -109,20 +111,6 @@
         document.getElementById("left").style.backgroundColor = "black";
         setTimeout(function(){ document.getElementById("left").style.backgroundColor = ""; }, 450);
       }
-
-      //                                                         ██████
-      //                                                     ████░░░░░░████
-      //                                                   ██░░░░░░░░░░    ██
-      //                                                 ██░░░░██████████░░  ██
-      //                                                 ██░░░░██      ██░░  ██
-      // ████████████████████████████████████████████████░░░░██          ██░░░░██
-      // ██░░░░░░░░░░░░░░░░░░░░░░░░░left░░░░░░░░░░░░░░░░░░░░░██    <     ██░░░░██
-      //   ██░░░░██░░░░██░░░░████████████████████████████░░░░██          ██░░░░██
-      //     ████  ████  ████                            ██░░░░██      ██░░░░██
-      //                                                 ██░░░░██████████░░░░██
-      //                                                   ██░░░░░░░░░░░░░░██
-      //                                                     ████░░░░░░████
-      //                                                         ██████
 
       if (keyCode == 38){
         state = 'up';
