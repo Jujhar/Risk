@@ -1,13 +1,15 @@
 <script>
-  /* Need to refractor this page, remove everything but result read and computer roll display */
-
   import { onMount } from 'svelte';
   import { fade } from 'svelte/transition';
 
   let computerRoll = 1;
+  let computerRolled = false;
   onMount(() => {
     computerRoll = Math.floor(Math.random() * 4) + 1;
+    computerRolled = true;
   })
+
+  let showScreen = 1;
 
   let key;
   let keyCode;
@@ -94,9 +96,35 @@
       }, 1600);
     }
 
+
+    // show results
     if (keyCode == 32 && result != initial) {
       document.getElementById('dice_roll').style.display = 'none';
       document.getElementById('dice_roll_p2').style.display = 'inherit';
+    }
+
+    // close results
+    if (keyCode == 32 && document.getElementById('dice_roll_p2').style.display == 'inherit') {
+      showScreen--;
+      if (showScreen < 0){
+        document.getElementById('dice_roll_p2').style.display = 'none';
+      }
+    }
+
+    // set cursor and set game pieces
+    if (keyCode == 32 && computerRolled && result != initial) {
+      if (parseInt(result.slice(result.length - 1)) >= computerRoll) {
+
+        /* your turn */
+        document.body.style.cursor = `url('pieces/unit-c.png'), auto`;
+      } else {
+
+        /* you lost */
+        document.body.style.cursor = `url('pieces/unit-c.png'), auto`;
+      }
+
+      // todo place units
+      // todo minus units remaining
     }
 
     // Choose key - ← > ^ ↓

@@ -1,6 +1,6 @@
 <script>
   import Dice from './Dice.svelte';
-  import DiceComputer from './DiceComputer.svelte';
+  import UnitPlacements from './UnitPlacements.svelte';
   import { onMount } from 'svelte';
   onMount(() => {
     window.scrollTo(400,1000);
@@ -187,7 +187,7 @@
 
 <!-- Dice roll -->
 <div id="dice_roll_p2">
-  <DiceComputer bind:die={turnCount} computer='true' />
+  <UnitPlacements bind:die={turnCount} computer='true' />
   <br />
 </div>
 <!-- Dice roll -->
@@ -242,14 +242,29 @@
   <div id="Alberta" class="tile"
       style="position: absolute; height:170px; width:310px; left:320px; top:630px; background-color: rgba(250,20,20,0.2);"
       on:click={move}>
+      <span style="position: sticky; left:4px; top:1px; flex: 19.33%;" on:click={handleClick}>
+        <img src="pieces/artillery-at.png" width=100 />
+      </span>
+      <span style="position: sticky; left:4px; top:1px; flex: 19.33%;" on:click={handleClick}>
+        <img src="pieces/unit-al.png" width=100 />
+      </span>
   </div>
   <div id="Ontario" class="tile"
       style="position: absolute; height:190px; width:250px; left:630px; top:630px; background-color: rgba(250,20,20,0.2);"
       on:click={move}>
+      <span style="position:sticky; left:2px; top:3px;" on:click={handleClick}>
+        <img src="pieces/enemy-general-a.webp" width=100 />
+      </span>
   </div>
   <div id="Quebec" class="tile"
       style="position: absolute; height:240px; width:250px; left:880px; top:630px; background-color: rgba(250,20,20,0.2);"
       on:click={move}>
+      <span style="position: sticky; left:4px; top:1px; flex: 19.33%;" on:click={handleClick}>
+        <img src="pieces/unit-al.png" width=100 />
+      </span>
+      <span style="position: sticky; left:4px; top:1px; flex: 19.33%;" on:click={handleClick}>
+        <img src="pieces/unit-al.png" width=100 />
+      </span>
   </div>
   <div id="Western United States" class="tile"
       style="position: absolute; height:240px; width:250px; left:380px; top:810px; background-color: rgba(250,20,20,0.2);"
