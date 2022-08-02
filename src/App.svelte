@@ -11,6 +11,7 @@
   let selection = [];
 
   let localPlay = false;
+  let territoriesSetStart = 14;
   let unitsSetStart = 40;
   let generalsStart = 1;
   let artilleryStart = 1;
@@ -63,17 +64,31 @@
   }
 
   function move() {
-      if (turnCount > 0
-        && selection.length > 0
-        && (this.childNodes.length == 0 || (selectionTerritory != this.id || selectionTerritory == 'x'))) {
-      selection.forEach(item=>{
-        item.style.backgroundColor = '';
-        this.appendChild(item);
-      })
-      turnCount--;
-      selection = [];
-      selectionTerritory = 'x';
-    }
+
+      if (territoriesSetStart != 0) {
+        var u = document.getElementById('UnitsInfantry');
+        if (document.body.style.cursor.includes("unit")) {
+          const x = u.children[0];
+          this.appendChild(x);
+        }
+        territoriesSetStart--;
+        unitsSetStart--;
+
+        // computer turn
+
+      } else {
+        if (turnCount > 0
+            && selection.length > 0
+            && (this.childNodes.length == 0 || (selectionTerritory != this.id || selectionTerritory == 'x'))) {
+          selection.forEach(item=>{
+            item.style.backgroundColor = '';
+            this.appendChild(item);
+          })
+          turnCount--;
+          selection = [];
+          selectionTerritory = 'x';
+        }
+      }
   }
 </script>
 
@@ -91,6 +106,15 @@
 
   <input bind:group={localPlay} name="scoops" value={true} type="radio">
   <label for="age2">vs local</label><br>
+
+  <br>
+  <br>
+  Starting territories
+  <br>
+  <input bind:value={territoriesSetStart} step="1" type="number" class="setup_input"
+        min='1' max='21' >
+  <br>
+
 
   <br>
   Starting units - remaining units pts.
@@ -201,6 +225,292 @@
   <div style="position: absolute; left:200px; top:690px;">
     <big><big style="font-size: 4em;">{turnCount}</big></big><br />
     <span on:click={deSelect} class="clickable">🚫 Deselect Units</span>
+  </div>
+
+  <!-- Units -->
+  <div id='Units' style="display: none">
+    <span style="position:sticky; left:2px; top:3px;" on:click={handleClick}>
+      <img src="general.webp" width=100 />
+    </span>
+    <span style="position: sticky; left:4px; top:1px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/artillery.png" width=100 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+  </div>
+
+  <div id='UnitsInfantry' style="display: none">
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
+    <span style="position: sticky; left:4px; top:2px; flex: 19.33%;" on:click={handleClick}>
+      <img src="pieces/unit.png" width=200 />
+    </span>
   </div>
 
   <!-- Regions -->
