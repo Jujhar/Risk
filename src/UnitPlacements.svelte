@@ -16,6 +16,7 @@
   let state = 'none';
   let initial = 'Press space to roll';
   let result = initial;
+  let placed = false;
   let rollActive = false;
   let boxRight = 4;
   let boxLeft = 5;
@@ -112,7 +113,7 @@
     }
 
     // set cursor and set game pieces
-    if (keyCode == 32 && computerRolled && result != initial) {
+    if (keyCode == 32 && computerRolled && result != initial && placed == false) {
       if (parseInt(result.slice(result.length - 1)) >= computerRoll) {
 
         /* your turn */
@@ -120,11 +121,13 @@
       } else {
 
         /* you lost */
+        var u = document.getElementById('EnemyInfantry');
+        const x = u.children[0];
+        document.getElementById('Western Europe').appendChild(x);
+
         document.body.style.cursor = `url('pieces/unit-c.png'), auto`;
       }
-
-      // todo place units
-      // todo minus units remaining
+      placed = true;
     }
 
     // Choose key - ← > ^ ↓
