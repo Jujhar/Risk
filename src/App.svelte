@@ -22,6 +22,14 @@
   let infantryStartP2 = 25;
   let setup_error = " "
 
+  let australiaSComputers = false; // Australia^'s under computer rule
+  let africaSComputers = false;
+  let northAmericaSComputers = false;
+  let southAmericaSComputers = false;
+  let europeSComputers = false;
+  let asiaSComputers = false;
+  let ignoreAsia = false;
+
   $: totalStartingUnits = unitsSetStart -
     infantryStart - (artilleryStart * 5)
     - (generalsStart * 10);
@@ -76,6 +84,7 @@
         unitsSetStart--;
 
         // computer turn
+        computerBoardCheck();
 
       } else {
         if (turnCount > 0
@@ -92,8 +101,265 @@
       }
   }
 
+  // inital piece placements
   function computerBoardCheck() {
-    // todo
+
+    // only place one unit per turn
+    let unitsPlaced = 0;
+
+    while (unitsPlaced == 0) {
+      var u = document.getElementById('EnemyInfantry');
+      const x = u.children[0];
+
+      // place on capitals
+      if (document.getElementById('Western Europe').children.length == 0) {
+        document.getElementById('Western Europe').appendChild(x);
+        unitsPlaced = 1;
+      }
+
+      else if (document.getElementById('Eastern United States').children.length == 0) {
+        document.getElementById('Eastern United States').appendChild(x);
+        unitsPlaced = 1;
+      }
+
+      else if (document.getElementById('China').children.length == 0) {
+        document.getElementById('China').appendChild(x);
+        unitsPlaced = 1;
+      }
+
+      // check if asia has 4 pieces
+      else if (continentHumanCount('Asia') > 4 && ignoreAsia == false) {
+        if (document.getElementById('China').children.length == 0) {
+          document.getElementById('China').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Mongolia').children.length == 0) {
+          document.getElementById('Mongolia').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else {
+          ignoreAsia = true;
+          unitsPlaced = 'skipped';
+        }
+      }
+
+      // check if australia has 0 pieces
+      else if (continentHumanCount('Australia') == 0 && australiaSComputers == false) {
+        if (document.getElementById('Indonesia').children.length == 0) {
+          document.getElementById('Indonesia').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('New Guinea').children.length == 0) {
+          document.getElementById('New Guinea').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Eastern Australia').children.length == 0) {
+          document.getElementById('Eastern Australia').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Western Australia').children.length == 0) {
+          document.getElementById('Western Australia').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else {
+          australiaSComputers = true;
+          unitsPlaced = 'skipped';
+        }
+      }
+
+      // check if africa has 0 pieces
+      else if (continentHumanCount('Africa') == 0 && africaSComputers == false) {
+        if (document.getElementById('North Africa').children.length == 0) {
+          document.getElementById('North Africa').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Egypt').children.length == 0) {
+          document.getElementById('East Africa').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Congo').children.length == 0) {
+          document.getElementById('Congo').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('South Africa').children.length == 0) {
+          document.getElementById('South Africa').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Madagascar').children.length == 0) {
+          document.getElementById('Madagascar').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else {
+          africaSComputers = true;
+          unitsPlaced = 'skipped';
+        }
+      }
+
+      // check if south america has 0 pieces
+      else if (continentHumanCount('South America') == 0 && southAmericaSComputers == false) {
+        if (document.getElementById('Venezuela').children.length == 0) {
+          document.getElementById('Venezuela').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Peru').children.length == 0) {
+          document.getElementById('Peru').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Brazil').children.length == 0) {
+          document.getElementById('Brazil').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Argentina').children.length == 0) {
+          document.getElementById('Argentina').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else {
+          southAmericaSComputers = true;
+          unitsPlaced = 'skipped';
+        }
+      }
+
+      // check if north america has 0 pieces
+      else if (continentHumanCount('North America') == 0 && northAmericaSComputers == false) {
+        if (document.getElementById('Alaska').children.length == 0) {
+          document.getElementById('Alaska').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Northwest Territory').children.length == 0) {
+          document.getElementById('Northwest Territory').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Alberta').children.length == 0) {
+          document.getElementById('Alberta').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Ontario').children.length == 0) {
+          document.getElementById('Ontario').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Quebec').children.length == 0) {
+          document.getElementById('Quebec').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Western United States').children.length == 0) {
+          document.getElementById('Western United States').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Eastern United States').children.length == 0) {
+          document.getElementById('Eastern United States').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Central America').children.length == 0) {
+          document.getElementById('Central America').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Greenland').children.length == 0) {
+          document.getElementById('Greenland').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else {
+          northAmericaSComputers = true;
+          unitsPlaced = 'skipped';
+        }
+      }
+
+      // check if europe has 0 pieces
+      else if (continentHumanCount('Europe') == 0 && europeSComputers == false) {
+        if (document.getElementById('Iceland').children.length == 0) {
+          document.getElementById('Iceland').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Scandinavia').children.length == 0) {
+          document.getElementById('Scandinavia').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Britain').children.length == 0) {
+          document.getElementById('Britain').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Western Europe').children.length == 0) {
+          document.getElementById('Western Europe').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Northern Europe').children.length == 0) {
+          document.getElementById('Northern Europe').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Southern Europe').children.length == 0) {
+          document.getElementById('Southern Europe').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else if (document.getElementById('Ukraine').children.length == 0) {
+          document.getElementById('Ukraine').appendChild(x);
+          unitsPlaced = 1;
+        }
+        else {
+          europeSComputers = true;
+          unitsPlaced = 'skipped';
+        }
+      }
+
+      // fallback
+      else if (document.getElementById('Kamchatka').children.length == 0) {
+        document.getElementById('Kamchatka').appendChild(x);
+        unitsPlaced = 1;
+      }
+
+      else if (document.getElementById('Japan').children.length == 0) {
+        document.getElementById('Japan').appendChild(x);
+        unitsPlaced = 1;
+      }
+    }
+    if (unitsPlaced == 'skipped') {
+      computerBoardCheck();
+    };
+  }
+
+  function continentHumanCount(continent) {
+    let count = 0;
+    let continentCountries = [];
+
+    if (continent == 'Australia') {
+      continentCountries = ['Indonesia', 'New Guinea', 'Eastern Australia',
+                    'Western Australia'];
+    }
+
+    else if (continent == "Asia") {
+      continentCountries = ['Afghanistan', 'Middle East', 'India', 'Siam',
+                      'China', 'Mongolia', 'Irkutsk', 'Yakutsk',
+                      'Kamchatka', 'Japan', 'Siberia', 'Ural'];
+    }
+
+    else if (continent == 'Africa') {
+      continentCountries = ['North Africa', 'Egypt', 'East Africa',
+                    'Congo', 'South Africa', 'Madagascar'];
+    }
+
+    else if (continent == "South America") {
+      continentCountries = ['Venezuela', 'Peru', 'Brazil', 'Argentina'];
+    }
+
+    else if (continent == "North America") {
+      continentCountries = ['Alaska', 'Northwest Territory', 'Alberta', 'Ontario',
+                           'Quebec', 'Western United States', 'Eastern United States',
+                           'Central America', 'Greenland'];
+    }
+
+    else if (continent == "Europe") {
+      continentCountries = ['Iceland', 'Scandinavia', 'Britain', 'Western Europe',
+                           'Northern Europe', 'Southern Europe', 'Ukraine'];
+    }
+
+    continentCountries.forEach(country => {
+      // console.log(country);
+      if (document.getElementById(country).children.length > 0) {
+        if (document.getElementById(country).children[0].children[0].src.includes('unit.png')) {
+          count++;
+        }
+      }
+    });
+
+    return count;
   }
 
 </script>
