@@ -13,6 +13,7 @@
 
   let localPlay = false;
   let territoriesSetStart = 14;
+  let initialTerrertoriesSet = 0;
   let unitsSetStart = 40;
   let generalsStart = 1;
   let artilleryStart = 1;
@@ -80,13 +81,64 @@
           const x = u.children[0];
           this.appendChild(x);
         }
+        if (initialTerrertoriesSet == 0) {
+          initialTerrertoriesSet = territoriesSetStart;
+        }
         territoriesSetStart--;
-        unitsSetStart--;
+        infantryStart--;
 
         // computer turn
         computerBoardCheck();
 
-      } else {
+      }
+
+      // place all remaining units
+      else if ((infantryStart != 0 || generalsStart != 0 || artilleryStart != 0) && territoriesSetStart == 0) {
+        document.getElementById('unitsRemaining').style.display = 'inherit';
+        setTimeout(() => {
+          document.getElementById('placementsDone').style.visibility = "hidden";
+        }, 7000);
+
+        if (document.body.style.cursor.includes("unit") && infantryStart != 0 &&
+            this.children[0].children[0].src.includes('unit.png')) {
+          var u = document.getElementById('UnitsInfantry');
+          const x = u.children[0];
+          this.appendChild(x);
+          infantryStart--;
+          if (infantryStart == 0) {
+            document.body.style.cursor = `url('pieces/artillery-c.png'), auto`;
+          }
+        }
+        else if (document.body.style.cursor.includes("artillery") && infantryStart == 0 && artilleryStart != 0 &&
+          this.children[0].children[0].src.includes('unit.png')) {
+            if (infantryStartP2 != 0) {
+              // todo - place computer units
+            }
+            var u = document.getElementById('UnitsArtillery');
+            const x = u.children[0];
+            this.appendChild(x);
+            artilleryStart--;
+            if (artilleryStart == 0) {
+              document.body.style.cursor = `url('pieces/general-c.png'), auto`;
+            }
+          }
+        else if (document.body.style.cursor.includes("general") && artilleryStart == 0 && generalsStart != 0 &&
+          this.children[0].children[0].src.includes('unit.png')) {
+            if (generalsStartP2 != 0) {
+              // todo - place computer units
+            }
+            var u = document.getElementById('UnitsGenerals');
+            const x = u.children[0];
+            this.appendChild(x);
+            generalsStart--;
+            if (generalsStart == 0) {
+              document.body.style.cursor = `inherit`;
+              // todo - select card
+            }
+          }
+      }
+
+      else {
         if (turnCount > 0
             && selection.length > 0
             && (this.childNodes.length == 0 || (selectionTerritory != this.id || selectionTerritory == 'x'))) {
@@ -488,6 +540,29 @@
 </div>
 <!-- Dice roll -->
 
+<!-- Units remaining -->
+<div id="unitsRemaining" style="background-color: #3f8b18;position:fixed;bottom:0;left:30;margin-left: 1px; display: none;">
+  <div id="placementsDone" style="background-color: #65c365;">
+    You've placed all {initialTerrertoriesSet} territories.
+  </div>
+  <div>
+    <div class="unitsRemainingSec">
+      <img src="general.webp" width="20" />
+      {generalsStart}
+    </div>
+    <div class="unitsRemainingSec">
+      <img src="pieces/artillery.png" width="20"  />
+      {artilleryStart}
+    </div>
+    <div class="unitsRemainingSec">
+      <img src="pieces/unit.png" width="20"  />
+      {infantryStart}
+    </div>
+  </div>
+  <br />
+</div>
+<!-- units remaining -->
+
 
   <!-- <div style="position: absolute; left:200px; top:390px;">
   <img src="general.webp" width=100 />
@@ -778,6 +853,11 @@ body {
   max-width: 64px;
   text-align: center;
   font-size: 2em;
+}
+
+.unitsRemainingSec {
+  display: inline-block;
+  width: 30%;
 }
 
 .star_error {
