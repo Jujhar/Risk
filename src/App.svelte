@@ -723,11 +723,11 @@
       on:click={move}>
   </div>
   <div id="South Africa" class="tile"
-      style="position: absolute; height:400px; width:330px; left:1580px; top:1840px; background-color: rgba(50,100,60,0.2);"
+      style="position: absolute; height:400px; width:260px; left:1580px; top:1840px; background-color: rgba(50,100,60,0.2);"
       on:click={move}>
   </div>
   <div id="Madagascar" class="tile"
-      style="position: absolute; height:180px; width:100px; left:1920px; top:1885px; background-color: rgba(50,100,60,0.2);"
+      style="position: absolute; height:290px; width:180px; left:1920px; top:1825px; background-color: rgba(50,100,60,0.2);"
       on:click={move}>
   </div>
   <!-- africa -->
