@@ -39,7 +39,8 @@
     + (generalsStartP2 * 10);
 
   function handleClick() {
-    if (selectionTerritory == 'x' || selectionTerritory == this.parentElement.id) {
+    if ((selectionTerritory == 'x' || selectionTerritory == this.parentElement.id) &&
+          infantryStart == 0 && generalsStart == 0 && artilleryStart == 0) {
       selectionTerritory = this.parentElement.id
       this.style.backgroundColor = 'green'
       selection.push(this);
