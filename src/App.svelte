@@ -38,6 +38,18 @@
   $: totalStartingUnitsP2 = infantryStartP2 + (artilleryStartP2 * 5)
     + (generalsStartP2 * 10);
 
+  let gameLog = {
+    settings: {},
+    gameMap: [], // G,A,i,eG,eA,ei (G - general, eG - enemy general)
+    diceRoll: 0,
+    turn: 'player 1', // 'computer'
+    Player1Card: null,
+    Player1PrevCard: [],
+    Player2Card: null,
+    Player2PrevCard: [],
+    ComputerCard: null,
+  }
+
   function handleClick() {
     if ((selectionTerritory == 'x' || selectionTerritory == this.parentElement.id) &&
           infantryStart == 0 && generalsStart == 0 && artilleryStart == 0) {
@@ -67,6 +79,18 @@
         setup_error = 'Please increase starting units';
       }
     }
+
+    // log setup
+    gameLog.settings = {'localPlay':localPlay,
+                        'territoriesSetStart': territoriesSetStart,
+                        'unitsSetStart': unitsSetStart,
+                        'generalsStart': generalsStart,
+                        'artilleryStart': artilleryStart,
+                        'infantryStart': infantryStart,
+                        'totalStartingUnitsP2': totalStartingUnitsP2,
+                        'generalsStartP2': generalsStartP2,
+                        'artilleryStartP2': artilleryStartP2,
+                        'infantryStartP2': infantryStartP2};
   }
 
   function turnRole() {
@@ -81,6 +105,9 @@
         if (document.body.style.cursor.includes("unit")) {
           const x = u.children[0];
           this.appendChild(x);
+
+          // log piece placement
+          gameLog.gameMap[this.id] = 'i';
         }
         if (initialTerrertoriesSet == 0) {
           initialTerrertoriesSet = territoriesSetStart;
@@ -105,6 +132,7 @@
           var u = document.getElementById('UnitsInfantry');
           const x = u.children[0];
           this.appendChild(x);
+          gameLog.gameMap[this.id] += '-i'; // log
           infantryStart--;
           if (infantryStart == 0) {
             document.body.style.cursor = `url('pieces/artillery-c.png'), auto`;
@@ -118,6 +146,7 @@
             var u = document.getElementById('UnitsArtillery');
             const x = u.children[0];
             this.appendChild(x);
+            gameLog.gameMap[this.id] += '-A'; // log
             artilleryStart--;
             if (artilleryStart == 0) {
               document.body.style.cursor = `url('pieces/general-c.png'), auto`;
@@ -131,6 +160,7 @@
             var u = document.getElementById('UnitsGenerals');
             const x = u.children[0];
             this.appendChild(x);
+            gameLog.gameMap[this.id] += '-G'; // log
             generalsStart--;
             if (generalsStart == 0) {
               document.body.style.cursor = `inherit`;
@@ -167,16 +197,19 @@
       // place on capitals
       if (document.getElementById('Western Europe').children.length == 0) {
         document.getElementById('Western Europe').appendChild(x);
+        gameLog.gameMap['Western Europe'] = 'ei'; // log
         unitsPlaced = 1;
       }
 
       else if (document.getElementById('Eastern United States').children.length == 0) {
         document.getElementById('Eastern United States').appendChild(x);
+        gameLog.gameMap['Eastern United States'] = 'ei'; // log
         unitsPlaced = 1;
       }
 
       else if (document.getElementById('China').children.length == 0) {
         document.getElementById('China').appendChild(x);
+        gameLog.gameMap['China'] = 'ei'; // log
         unitsPlaced = 1;
       }
 
@@ -184,10 +217,12 @@
       else if (continentHumanCount('Asia') > 4 && ignoreAsia == false) {
         if (document.getElementById('China').children.length == 0) {
           document.getElementById('China').appendChild(x);
+          gameLog.gameMap['China'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Mongolia').children.length == 0) {
           document.getElementById('Mongolia').appendChild(x);
+          gameLog.gameMap['Mongolia'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else {
@@ -200,18 +235,22 @@
       else if (continentHumanCount('Australia') == 0 && australiaSComputers == false) {
         if (document.getElementById('Indonesia').children.length == 0) {
           document.getElementById('Indonesia').appendChild(x);
+          gameLog.gameMap['Indonesia'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('New Guinea').children.length == 0) {
           document.getElementById('New Guinea').appendChild(x);
+          gameLog.gameMap['New Guinea'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Eastern Australia').children.length == 0) {
           document.getElementById('Eastern Australia').appendChild(x);
+          gameLog.gameMap['Eastern Australia'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Western Australia').children.length == 0) {
           document.getElementById('Western Australia').appendChild(x);
+          gameLog.gameMap['Western Australia'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else {
@@ -224,22 +263,27 @@
       else if (continentHumanCount('Africa') == 0 && africaSComputers == false) {
         if (document.getElementById('North Africa').children.length == 0) {
           document.getElementById('North Africa').appendChild(x);
+          gameLog.gameMap['North Africa'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Egypt').children.length == 0) {
           document.getElementById('East Africa').appendChild(x);
+          gameLog.gameMap['East Africa'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Congo').children.length == 0) {
           document.getElementById('Congo').appendChild(x);
+          gameLog.gameMap['Congo'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('South Africa').children.length == 0) {
           document.getElementById('South Africa').appendChild(x);
+          gameLog.gameMap['South Africa'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Madagascar').children.length == 0) {
           document.getElementById('Madagascar').appendChild(x);
+          gameLog.gameMap['Madagascar'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else {
@@ -252,18 +296,22 @@
       else if (continentHumanCount('South America') == 0 && southAmericaSComputers == false) {
         if (document.getElementById('Venezuela').children.length == 0) {
           document.getElementById('Venezuela').appendChild(x);
+          gameLog.gameMap['Venezuela'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Peru').children.length == 0) {
           document.getElementById('Peru').appendChild(x);
+          gameLog.gameMap['Peru'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Brazil').children.length == 0) {
           document.getElementById('Brazil').appendChild(x);
+          gameLog.gameMap['Brazil'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Argentina').children.length == 0) {
           document.getElementById('Argentina').appendChild(x);
+          gameLog.gameMap['Argentina'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else {
@@ -276,38 +324,47 @@
       else if (continentHumanCount('North America') == 0 && northAmericaSComputers == false) {
         if (document.getElementById('Alaska').children.length == 0) {
           document.getElementById('Alaska').appendChild(x);
+          gameLog.gameMap['Alaska'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Northwest Territory').children.length == 0) {
           document.getElementById('Northwest Territory').appendChild(x);
+          gameLog.gameMap['Northwest Territory'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Alberta').children.length == 0) {
           document.getElementById('Alberta').appendChild(x);
+          gameLog.gameMap['Alberta'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Ontario').children.length == 0) {
           document.getElementById('Ontario').appendChild(x);
+          gameLog.gameMap['Ontario'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Quebec').children.length == 0) {
           document.getElementById('Quebec').appendChild(x);
+          gameLog.gameMap['Quebec'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Western United States').children.length == 0) {
           document.getElementById('Western United States').appendChild(x);
+          gameLog.gameMap['Western United States'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Eastern United States').children.length == 0) {
           document.getElementById('Eastern United States').appendChild(x);
+          gameLog.gameMap['Eastern United States'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Central America').children.length == 0) {
           document.getElementById('Central America').appendChild(x);
+          gameLog.gameMap['Central America'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Greenland').children.length == 0) {
           document.getElementById('Greenland').appendChild(x);
+          gameLog.gameMap['Greenland'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else {
@@ -320,30 +377,37 @@
       else if (continentHumanCount('Europe') == 0 && europeSComputers == false) {
         if (document.getElementById('Iceland').children.length == 0) {
           document.getElementById('Iceland').appendChild(x);
+          gameLog.gameMap['Iceland'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Scandinavia').children.length == 0) {
           document.getElementById('Scandinavia').appendChild(x);
+          gameLog.gameMap['Scandinavia'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Britain').children.length == 0) {
           document.getElementById('Britain').appendChild(x);
+          gameLog.gameMap['Britain'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Western Europe').children.length == 0) {
           document.getElementById('Western Europe').appendChild(x);
+          gameLog.gameMap['Western Europe'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Northern Europe').children.length == 0) {
           document.getElementById('Northern Europe').appendChild(x);
+          gameLog.gameMap['Northern Europe'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Southern Europe').children.length == 0) {
           document.getElementById('Southern Europe').appendChild(x);
+          gameLog.gameMap['Southern Europe'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else if (document.getElementById('Ukraine').children.length == 0) {
           document.getElementById('Ukraine').appendChild(x);
+          gameLog.gameMap['Ukraine'] = 'ei'; // log
           unitsPlaced = 1;
         }
         else {
@@ -355,11 +419,13 @@
       // fallback
       else if (document.getElementById('Kamchatka').children.length == 0) {
         document.getElementById('Kamchatka').appendChild(x);
+        gameLog.gameMap['Kamchatka'] = 'ei'; // log
         unitsPlaced = 1;
       }
 
       else if (document.getElementById('Japan').children.length == 0) {
         document.getElementById('Japan').appendChild(x);
+        gameLog.gameMap['Japan'] = 'ei'; // log
         unitsPlaced = 1;
       }
     }
