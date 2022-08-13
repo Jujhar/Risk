@@ -101,7 +101,8 @@
   function move() {
 
       if (territoriesSetStart != 0
-      && (document.getElementById('setup_menu').style.display == 'none')) {
+      && document.getElementById('setup_menu').style.display == 'none'
+      && this.children.length == 0) {
         var u = document.getElementById('UnitsInfantry');
         if (document.body.style.cursor.includes("unit")) {
           const x = u.children[0];
