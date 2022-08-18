@@ -142,6 +142,16 @@
     document.getElementById('dice_roll').style.display = 'inherit';
   }
 
+  function getRandomCompTerritory() {
+    let compsTerritories = [];
+    Object.keys(gameLog.gameMap).forEach(country => {
+      if (gameLog.gameMap[country].includes("ei")) {
+        compsTerritories.push(country);
+      }
+    });
+    return compsTerritories[Math.floor(Math.random() * (compsTerritories.length + 1))]
+  }
+
   function move() {
 
       if (territoriesSetStart != 0
@@ -175,6 +185,16 @@
 
         if (document.body.style.cursor.includes("unit") && infantryStart != 0 &&
             this.children[0].children[0].src.includes('unit.png')) {
+
+          // place enemy unit
+          if (infantryStartP2 != 0) {
+            // todo - place more computer units per turn eg 2 or 3 and finish earlier
+            let v = document.getElementById('EnemyInfantry');
+            let compTerritory = getRandomCompTerritory();
+            document.getElementById(compTerritory).appendChild(v.children[0]);
+            gameLog.gameMap[compTerritory] += '-ei'; // log
+          }
+
           var u = document.getElementById('UnitsInfantry');
           const x = u.children[0];
           this.appendChild(x);
@@ -186,9 +206,15 @@
         }
         else if (document.body.style.cursor.includes("artillery") && infantryStart == 0 && artilleryStart != 0 &&
           this.children[0].children[0].src.includes('unit.png')) {
+
+            // place enemy artillery
             if (infantryStartP2 != 0) {
-              // todo - place computer units
+              let v = document.getElementById('EnemyArtillery');
+              let compTerritory = getRandomCompTerritory();
+              document.getElementById(compTerritory).appendChild(v.children[0]);
+              gameLog.gameMap[compTerritory] += '-eA'; // log
             }
+
             var u = document.getElementById('UnitsArtillery');
             const x = u.children[0];
             this.appendChild(x);
@@ -200,9 +226,15 @@
           }
         else if (document.body.style.cursor.includes("general") && artilleryStart == 0 && generalsStart != 0 &&
           this.children[0].children[0].src.includes('unit.png')) {
+
+            // place enemy generals
             if (generalsStartP2 != 0) {
-              // todo - place computer units
+              let v = document.getElementById('EnemyGeneral');
+              let compTerritory = getRandomCompTerritory();
+              document.getElementById(compTerritory).appendChild(v.children[0]);
+              gameLog.gameMap[compTerritory] += '-eG'; // log
             }
+
             var u = document.getElementById('UnitsGenerals');
             const x = u.children[0];
             this.appendChild(x);
