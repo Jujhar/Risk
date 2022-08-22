@@ -768,7 +768,7 @@
       on:click={move}>
   </div>
   <div id="Greenland" class="tile"
-      style="position: absolute; height:380px; width:450px; left:1010px; top:210px; background-color: rgba(250,20,20,0.2);"
+      style="position: absolute; height:340px; width:450px; left:1010px; top:210px; background-color: rgba(250,20,20,0.2);"
       on:click={move}>
   </div>
   <!-- america -->
@@ -824,7 +824,7 @@
 
 
   <!-- Europe -->
-  <div id="Iceland" class="tile" style="position: absolute; height:60px; width:120px; left:1290px; top:590px; background-color: rgba(50,50,160,0.2);"
+  <div id="Iceland" class="tile" style="position: absolute; height:90px; width:220px; left:1240px; top:580px; background-color: rgba(50,50,160,0.2);"
       on:click={move}>
   </div>
   <div id="Scandinavia" class="tile" style="position: absolute; height:300px; width:250px; left:1490px; top:470px; background-color: rgba(50,50,160,0.2);"
