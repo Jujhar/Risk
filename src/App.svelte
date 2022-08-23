@@ -111,6 +111,14 @@
     selectionTerritory = 'x';
   }
 
+  function saveGameMenu() {
+    document.getElementById('game_save').style.display = 'inherit';
+  }
+
+  function saveGameMenuDone() {
+    document.getElementById('game_save').style.display = 'none';
+  }
+
   function doneSetup() {
     if (totalStartingUnits == 0) {
       setup_error = ' ';
@@ -685,6 +693,33 @@
 </div>
 <!-- Dice roll -->
 
+<!-- Game save -->
+<div id="game_save">
+  <a href="#">Save game online</a>
+  <br /><br />
+
+  <a href="#">
+    <input style="width: 62px;
+                  text-align: center;
+                  color: darkcyan;" />
+      &nbsp;load game
+  </a>
+  <br /><br />
+  <hr style="width: 114px;
+             margin: auto;">
+  <br />
+
+  <a href="#" style="display: inline;">Save gamefile</a>
+  <br /><br />
+
+  <button>Load gamefile</button>
+  <br /><br /><br />
+
+  <button class="button" on:click={saveGameMenuDone}>Done</button>
+  <br />
+</div>
+<!-- game save -->
+
 <!-- Units remaining -->
 <div id="unitsRemaining" style="background-color: #3f8b18;position:fixed;bottom:0;left:30;margin-left: 1px; display: none;">
   <div id="placementsDone" style="background-color: #65c365;">
@@ -716,7 +751,17 @@
   <!-- turn count -->
   <div style="position: absolute; left:200px; top:690px;">
     <big><big style="font-size: 4em;">{turnCount}</big></big><br />
-    <span on:click={deSelect} class="clickable">🚫 Deselect Units</span>
+    <span on:click={deSelect} class="clickable">🚫 Deselect Units</span><br /><br /><br />
+    <span class="clickable" on:click={saveGameMenu} style="margin-top: -24px;">
+      <img src="https://raw.githubusercontent.com/Silbad/pixa/main/icons/world.svg"
+      alt="save on web icon"
+      style="display: inherit;
+    width: 25px;
+    background-color: papayawhip;
+    opacity: 0.7;
+    "/>
+        Save or load
+    </span>
   </div>
 
   <!-- Units -->
@@ -957,6 +1002,18 @@ body {
 }
 
 #starting_turn {
+  display: none;
+  position: fixed;
+  width: 800px;
+  top: 22%;
+  right: 10%;
+  background-color: #65c365;
+  padding: 50px;
+  text-align: center;
+  z-index: 20;
+}
+
+#game_save {
   display: none;
   position: fixed;
   width: 800px;
