@@ -94,6 +94,7 @@
            {c:"Wild", u:"W"}],
   }
 
+
   function handleClick() {
     if ((selectionTerritory == 'x' || selectionTerritory == this.parentElement.id) &&
           infantryStart == 0 && generalsStart == 0 && artilleryStart == 0) {
@@ -113,9 +114,11 @@
 
   function saveGameMenu() {
     document.getElementById('game_save').style.display = 'inherit';
+    document.getElementById('setup_menu').style.backgroundColor = "#65c36580";
   }
 
   function saveGameMenuDone() {
+    document.getElementById('setup_menu').style.backgroundColor = "#65c365";
     document.getElementById('game_save').style.display = 'none';
   }
 
@@ -567,6 +570,21 @@
     return count;
   }
 
+  // Save gamelog to file
+  function downloadSaveFile() {
+
+    // Add date to file name
+    var date = new Date();var dd = String(date.getDate()).padStart(2, '0');
+    var mm = String(date.getMonth() + 1).padStart(2, '0');
+    var yyyy = date.getFullYear(); date = mm + '/' + dd + '/' + yyyy;
+
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(gameLog));
+    var dlAnchorElem = document.getElementById('downloadAnchorElem');
+    dlAnchorElem.setAttribute("href", dataStr);
+    dlAnchorElem.setAttribute("download", "risk_save_" + date + ".gamefile");
+    dlAnchorElem.click();
+	}
+
 </script>
 
 <!--<svelte:window on:keydown={handleKeydown}/>-->
@@ -709,7 +727,11 @@
              margin: auto;">
   <br />
 
-  <a href="#" style="display: inline;">Save gamefile</a>
+  <a href="#"
+     style="display: inline;"
+     on:click={downloadSaveFile}>
+      Save gamefile
+  </a><a id="downloadAnchorElem" style="display:none"></a>
   <br /><br />
 
   <button>Load gamefile</button>
