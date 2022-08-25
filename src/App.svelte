@@ -93,7 +93,7 @@
            {c:"Wild", u:"W"},
            {c:"Wild", u:"W"}],
   }
-
+  let saveFileName = null
 
   function handleClick() {
     if ((selectionTerritory == 'x' || selectionTerritory == this.parentElement.id) &&
@@ -585,8 +585,29 @@
     dlAnchorElem.click();
 	}
 
+  // Save game online
+  async function generateSaveFile () {
+    var url = 'https://rebabre.com/app/risk/save.php';
+
+    var formData = new FormData();
+    formData.append('data', JSON.stringify(gameLog));
+
+    fetch(url, { method: 'POST', body: formData })
+    .then(function (response) {
+      return response.text();
+    })
+    .then(function (body) {
+      console.log(body);
+      let dat = JSON.parse(body)
+      saveFileName = dat.file
+    });
+	}
 </script>
 
+<svelte:head>
+	<title>{saveFileName ? `Risk - ${saveFileName}` : 'Risk'}</title>
+	<html lang="en" />
+</svelte:head>
 <!--<svelte:window on:keydown={handleKeydown}/>-->
 
 <html data-theme="retro" lang="en">
@@ -713,13 +734,14 @@
 
 <!-- Game save -->
 <div id="game_save">
-  <a href="#">Save game online</a>
+  <a href="#" on:click={generateSaveFile}>Save game online</a>
   <br /><br />
 
   <a href="#">
     <input style="width: 62px;
                   text-align: center;
-                  color: darkcyan;" />
+                  color: darkcyan;"
+           placeholder={saveFileName}/>
       &nbsp;load game
   </a>
   <br /><br />
