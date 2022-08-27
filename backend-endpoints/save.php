@@ -11,16 +11,38 @@ for ($i = 0; $i < 5; $i++) {
     $randomString .= $characters[rand(0, $charactersLength - 1)];
 }
 
-// Create file
-$myfile = fopen("$randomString", "w") or die("Unable to open file!");
+// A ddos booby trap
+session_start();
 
-// Write data
-foreach ($_POST as $key => $value) {
-    $txt = $txt . $key;
-    $txt = $txt . $value;
+// get ip address
+if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+    $ip = $_SERVER['HTTP_CLIENT_IP'];
+} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+} else {
+    $ip = $_SERVER['REMOTE_ADDR'];
 }
-fwrite($myfile, $txt);
-fclose($myfile);
+
+// set number of saves sent
+if (!isset($_SESSION[$ip]) && !empty($_SESSION[$ip])) {
+   $_SESSION[$ip] = 0;
+} else {
+  $_SESSION[$ip]++;
+}
+// a ddos booby trap
+
+// Create file
+if ($_SESSION[$ip] < 500) {
+  $myfile = fopen("$randomString", "w") or die("Unable to open file!");
+
+  // Write data
+  foreach ($_POST as $key => $value) {
+      $txt = $txt . $key;
+      $txt = $txt . $value;
+  }
+  fwrite($myfile, $txt);
+  fclose($myfile);
+}
 
 // Return file name
 echo json_encode(array(
