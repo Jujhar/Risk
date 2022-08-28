@@ -93,7 +93,8 @@
            {c:"Wild", u:"W"},
            {c:"Wild", u:"W"}],
   }
-  let saveFileName = null
+  let saveFileName = null;
+  let fileinput;
 
   function handleClick() {
     if ((selectionTerritory == 'x' || selectionTerritory == this.parentElement.id) &&
@@ -115,6 +116,16 @@
   function saveGameMenu() {
     document.getElementById('game_save').style.display = 'inherit';
     document.getElementById('setup_menu').style.backgroundColor = "#65c36580";
+  }
+
+  // load gamefile
+  const onFileSelected =(e)=>{
+	  let file = e.target.files[0];
+    let reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = function() {
+      gameLog = JSON.parse(reader.result);
+    };
   }
 
   function saveGameMenuDone() {
@@ -756,7 +767,11 @@
   </a><a id="downloadAnchorElem" style="display:none"></a>
   <br /><br />
 
-  <button>Load gamefile</button>
+  <button on:click={()=>{fileinput.click();}}>Load gamefile</button>
+  <input style="display:none"
+         type="file"
+         accept=".gamefile"
+         on:change={(e)=>onFileSelected(e)} bind:this={fileinput} >
   <br /><br /><br />
 
   <button class="button" on:click={saveGameMenuDone}>Done</button>
