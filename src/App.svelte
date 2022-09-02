@@ -22,6 +22,7 @@
   let artilleryStartP2 = 1;
   let infantryStartP2 = 25;
   let setup_error = " "
+  let setup_error_top = " "
 
   let australiaSComputers = false; // Australia^'s under computer rule
   let africaSComputers = false;
@@ -134,29 +135,41 @@
   }
 
   function doneSetup() {
-    if (totalStartingUnits == 0) {
-      setup_error = ' ';
-      this.parentElement.style.display = 'none';
-      document.getElementById('starting_turn').style.display = 'inherit';
+    let error = false;
+
+    if (infantryStart < territoriesSetStart + 1) {
+      setup_error = 'Not enough pieces to begin game, please add more';
+      setup_error_top = true;
+      error = true;
     } else {
-      if (totalStartingUnits > 0) {
-        setup_error = 'Please use all available units';
-      } else {
-        setup_error = 'Please increase starting units';
-      }
+      setup_error_top = ' ';
     }
 
-    // log setup
-    gameLog.settings = {'localPlay':localPlay,
-                        'territoriesSetStart': territoriesSetStart,
-                        'unitsSetStart': unitsSetStart,
-                        'generalsStart': generalsStart,
-                        'artilleryStart': artilleryStart,
-                        'infantryStart': infantryStart,
-                        'totalStartingUnitsP2': totalStartingUnitsP2,
-                        'generalsStartP2': generalsStartP2,
-                        'artilleryStartP2': artilleryStartP2,
-                        'infantryStartP2': infantryStartP2};
+    if (error == false) {
+      if (totalStartingUnits == 0) {
+        setup_error = ' ';
+        this.parentElement.style.display = 'none';
+        document.getElementById('starting_turn').style.display = 'inherit';
+      } else {
+        if (totalStartingUnits > 0) {
+          setup_error = 'Please use all available units';
+        } else {
+          setup_error = 'Please increase starting units';
+        }
+      }
+
+      // log setup
+      gameLog.settings = {'localPlay':localPlay,
+                          'territoriesSetStart': territoriesSetStart,
+                          'unitsSetStart': unitsSetStart,
+                          'generalsStart': generalsStart,
+                          'artilleryStart': artilleryStart,
+                          'infantryStart': infantryStart,
+                          'totalStartingUnitsP2': totalStartingUnitsP2,
+                          'generalsStartP2': generalsStartP2,
+                          'artilleryStartP2': artilleryStartP2,
+                          'infantryStartP2': infantryStartP2};
+  }
   }
 
   function turnRole() {
@@ -640,6 +653,9 @@
   <br>
   <input bind:value={territoriesSetStart} step="1" type="number" class="setup_input"
         min='1' max='21' >
+  {#if setup_error_top != ' '}
+    <span class="star_error">❊</span>
+  {/if}
   <br>
 
 
@@ -649,7 +665,7 @@
   <input bind:value={unitsSetStart} step="2" type="number" class="setup_input"
         min='0' >
   <input style="background-color: #577ea1;" bind:value={totalStartingUnits} type="number" class="setup_input" disabled>
-  {#if setup_error != ' '}
+  {#if setup_error != ' ' && setup_error_top == ' '}
     <span class="star_error">❊</span>
   {/if}
 
