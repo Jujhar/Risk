@@ -41,7 +41,7 @@
 
   let gameLog = {
     settings: {},
-    gameMap: [], // G,A,i,eG,eA,ei (G - general, eG - enemy general)
+    gameMap: {}, // G,A,i,eG,eA,ei (G - general, eG - enemy general)
     diceRoll: 0,
     turn: 'player 1', // 'computer'
     Player1Card: null,
@@ -126,6 +126,7 @@
     reader.readAsText(file);
     reader.onload = function() {
       gameLog = JSON.parse(reader.result);
+      // todo rerender map
     };
   }
 
@@ -217,8 +218,8 @@
         setTimeout(() => {
           document.getElementById('placementsDone').style.visibility = "hidden";
         }, 7000);
-
         if (document.body.style.cursor.includes("unit") && infantryStart != 0 &&
+            (typeof(this.children[0]) != 'undefined') &&
             this.children[0].children[0].src.includes('unit.png')) {
 
           // place enemy unit
@@ -240,6 +241,7 @@
           }
         }
         else if (document.body.style.cursor.includes("artillery") && infantryStart == 0 && artilleryStart != 0 &&
+          (typeof(this.children[0]) != 'undefined') &&
           this.children[0].children[0].src.includes('unit.png')) {
 
             // place enemy artillery
@@ -260,6 +262,7 @@
             }
           }
         else if (document.body.style.cursor.includes("general") && artilleryStart == 0 && generalsStart != 0 &&
+          (typeof(this.children[0]) != 'undefined') &&
           this.children[0].children[0].src.includes('unit.png')) {
 
             // place enemy generals
@@ -596,13 +599,12 @@
 
   // Save gamelog to file
   function downloadSaveFile() {
-
     // Add date to file name
     var date = new Date();var dd = String(date.getDate()).padStart(2, '0');
     var mm = String(date.getMonth() + 1).padStart(2, '0');
     var yyyy = date.getFullYear(); date = mm + '/' + dd + '/' + yyyy;
 
-    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(gameLog));
+    let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(gameLog));
     var dlAnchorElem = document.getElementById('downloadAnchorElem');
     dlAnchorElem.setAttribute("href", dataStr);
     dlAnchorElem.setAttribute("download", "risk_save_" + date + ".gamefile");
