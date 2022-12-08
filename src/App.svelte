@@ -289,13 +289,55 @@
         if (turnCount > 0
             && selection.length > 0
             && (this.childNodes.length == 0 || (selectionTerritory != this.id || selectionTerritory == 'x'))) {
+          let won = 0;
+          let battleloc = gameLog.gameMap[this.id];
+
+          // check if valid move
+          let strength = 0;
+          let opposition = 0;
+          let cannonCount = 0;
+          selection.forEach((piece)=> {
+            if (piece.innerHTML.includes("/unit.png")) {
+              strength++;
+            }
+            else if (piece.innerHTML.includes("s/general.webp")) {
+              strength = strength + 10;
+            }
+            opposition = (battleloc.match(/ei/g) || []).length
+            + ((battleloc.match(/eG/g) || []).length * 10);
+            cannonCount = (battleloc.match(/eA/g) || []).length
+
+            if (strength > opposition) {
+              won = 1;
+            }
+          })
+
+          if (won == 1) {
+            if (opposition > 0) {
+              this.innerHTML = '';
+
+              // Retrieve enemy cannons
+              for (let i = 0; i < cannonCount; i++) {
+                var u = document.getElementById('UnitsArtillery');
+                const x = u.children[0];
+                this.appendChild(x);
+                battleloc += '-A'; // log
+              }
+            }
+          }
+
           selection.forEach(item=>{
             item.style.backgroundColor = '';
-            this.appendChild(item);
+            if (won == 1) {
+              this.appendChild(item);
+              // todo - add to log
+            }
           })
-          turnCount--;
-          selection = [];
-          selectionTerritory = 'x';
+          if (won == 1) {
+            turnCount--;
+            selection = [];
+            selectionTerritory = 'x';
+          }
         }
       }
   }
