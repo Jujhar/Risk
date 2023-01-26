@@ -162,6 +162,30 @@
     selectionTerritory = 'x';
   }
 
+  function gameSetup(game){
+    if (game === 'dev') {
+      territoriesSetStart = 3;
+      unitsSetStart = 20;
+      infantryStart = 5;
+      generalsStart = 1;
+      artilleryStart = 1;
+    }
+    else if (game === 'quick') {
+      territoriesSetStart = 5;
+      unitsSetStart = 13;
+      infantryStart = 13;
+      generalsStart = 0;
+      artilleryStart = 0;
+    }
+    else {
+      territoriesSetStart = 14;
+      unitsSetStart = 40;
+      infantryStart = 25;
+      generalsStart = 1;
+      artilleryStart = 1;
+    }
+  }
+
   function saveGameMenu() {
     document.getElementById('game_save').style.display = 'inherit';
     document.getElementById('setup_menu').style.backgroundColor = "#65c36580";
@@ -730,9 +754,16 @@
 <body>
 
 <!-- Start screen -->
-<div id="setup_menu">
+<div id="setup_menu" style="background-color: #88dc88;">
   <h1><b>Game Setup</b></h1>
+
+  <section id="setup_menu_qck_button">
+  <span on:click={()=>{gameSetup('dev')}}><i>Dev</i></span>&nbsp;&nbsp;
+  <span on:click={()=>{gameSetup('quick')}}><i>Quick game</i></span>&nbsp;&nbsp;
+  <span on:click={()=>{gameSetup('normal')}}><i>Normal game</i></span>
+  </section>
   <br>
+
   <input bind:group={localPlay} value={false} type="radio" name="age" checked>
   <label for="age1">vs computer &nbsp;</label>
 
@@ -1166,6 +1197,14 @@ body {
   padding: 50px;
   text-align: center;
   z-index: 20;
+}
+
+#setup_menu_qck_button {
+  opacity: 0.3;
+  margin:-20px;
+  padding:-20px;
+  margin-top: -6px;
+  cursor:pointer
 }
 
 #starting_turn {
