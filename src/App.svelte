@@ -1121,7 +1121,7 @@
   <!-- africa -->
 
   <!-- South America -->
-  <div id="Venezuela" class="tile" style="position: absolute; height:180px; width:340px; left:660px; top:1280px; background-color: rgba(50,100,60,0.2);"
+  <div id="Venezuela" class="tile" style="position: absolute; height:280px; width:340px; left:660px; top:1180px; background-color: rgba(50,100,60,0.2);"
       on:click={move}>
   </div>
   <div id="Peru" class="tile" style="position: absolute; height:290px; width:220px; left:630px; top:1470px; background-color: rgba(50,100,60,0.2);"
