@@ -309,7 +309,16 @@
           gameLog.gameMap[this.id] += '-i'; // log
           infantryStart--;
           if (infantryStart == 0) {
-            document.body.style.cursor = `url('pieces/artillery-c.png'), auto`;
+            if (artilleryStart != 0) {
+              document.body.style.cursor = `url('pieces/artillery-c.png'), auto`;
+            }
+            else if (generalsStart != 0) {
+              document.body.style.cursor = `url('pieces/artillery-c.png'), auto`;
+            }
+            else {
+              document.body.style.cursor = `inherit`;
+              // todo - select card
+            }
           }
         }
         else if (document.body.style.cursor.includes("artillery") && infantryStart == 0 && artilleryStart != 0 &&
@@ -330,7 +339,13 @@
             gameLog.gameMap[this.id] += '-A'; // log
             artilleryStart--;
             if (artilleryStart == 0) {
-              document.body.style.cursor = `url('pieces/general-c.png'), auto`;
+              if (generalsStart != 0) {
+                document.body.style.cursor = `url('pieces/general-c.png'), auto`;
+              }
+              else {
+                document.body.style.cursor = `inherit`;
+                // todo - select card
+              }
             }
           }
         else if (document.body.style.cursor.includes("general") && artilleryStart == 0 && generalsStart != 0 &&
