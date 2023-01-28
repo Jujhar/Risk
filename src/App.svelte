@@ -265,7 +265,7 @@
   }
   }
 
-  function turnRole() {
+  function turnRoll() {
     this.parentElement.style.display = 'none';
     document.getElementById('dice_roll').style.display = 'inherit';
   }
@@ -899,7 +899,7 @@
   {/if}
   </b></h1>
   <br />
-  <button class="button" on:click={turnRole}>Roll</button>
+  <button class="button" on:click={turnRoll}>Roll</button>
 </div>
 <!-- starting turn -->
 
