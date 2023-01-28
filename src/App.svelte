@@ -21,6 +21,11 @@
   let generalsStartP2 = 1;
   let artilleryStartP2 = 1;
   let infantryStartP2 = 25;
+  let drawnCardHistory = [{c:"", u:""}];
+  $: drawnCardHistoryIndex = 0;
+  let needCard = true;
+  let drawnCardHistoryP2 = [{c:"", u:""}];
+  let needCardP2 = true;
   let setup_error = " "
   let setup_error_top = " "
 
@@ -92,11 +97,6 @@
               'Western Australia':''},
     diceRoll: 0,
     turn: 'player 1', // 'computer'
-    Player1Card: null,
-    Player1PrevCard: [],
-    Player2Card: null,
-    Player2PrevCard: [],
-    ComputerCard: null,
     Deck: [{c:"Alaska", u:"i"},
            {c:"Northwest Territory", u:"A"},
            {c:"Alberta", u:"A"},
@@ -184,6 +184,26 @@
       generalsStart = 1;
       artilleryStart = 1;
     }
+  }
+
+  function turnStart() {
+    if (needCard === true) {
+      let x = Math.floor(Math.random() * gameLog.Deck.length);
+        drawnCardHistory.push(gameLog.Deck[x]);
+        gameLog.Deck.splice(x, 1);
+        needCard = false;
+        console.log(drawnCardHistoryP2);
+        drawnCardHistoryIndex = drawnCardHistoryIndex+1
+    }
+
+    if (needCardP2 === true) {
+      let x = Math.floor(Math.random() * gameLog.Deck.length);
+        drawnCardHistoryP2.push(gameLog.Deck[x]);
+        gameLog.Deck.splice(x, 1);
+        needCardP2 = false;
+    }
+
+    // TODO roll dice
   }
 
   function saveGameMenu() {
@@ -317,7 +337,7 @@
             }
             else {
               document.body.style.cursor = `inherit`;
-              // todo - select card
+              turnStart();
             }
           }
         }
@@ -344,7 +364,7 @@
               }
               else {
                 document.body.style.cursor = `inherit`;
-                // todo - select card
+                turnStart();
               }
             }
           }
@@ -367,7 +387,7 @@
             generalsStart--;
             if (generalsStart == 0) {
               document.body.style.cursor = `inherit`;
-              // todo - select card
+              turnStart();
             }
           }
       }
@@ -964,7 +984,8 @@
   <!-- turn count -->
   <div style="position: absolute; left:200px; top:690px;">
     <big><big style="font-size: 4em;">{turnCount}</big></big><br />
-    <span on:click={deSelect} class="clickable">🚫 Deselect Units</span><br /><br /><br />
+    <span on:click={deSelect} class="clickable">🚫 Deselect Units</span><br />
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{drawnCardHistory[drawnCardHistoryIndex].c + ' ' + drawnCardHistory[drawnCardHistoryIndex].u}</span><br />
     <span class="clickable" on:click={saveGameMenu} style="margin-top: -24px;">
       <img src="https://raw.githubusercontent.com/Silbad/pixa/main/icons/world.svg"
       alt="save on web icon"
