@@ -2,6 +2,7 @@
   import Dice from './Dice.svelte';
   import UnitPlacements from './UnitPlacements.svelte';
   import Pieces from './Board/Pieces.svelte';
+  import { NEIGHBOURING_STATES } from './Board/MapMovement.svelte';
   import { onMount } from 'svelte';
   onMount(() => {
     window.scrollTo(400,1000);
@@ -203,7 +204,76 @@
         needCardP2 = false;
     }
 
-    // TODO roll dice
+    if (turnCount == 0){
+      // Do computer turn
+      // TODO skip first time if you go first
+      computerTurn();
+
+      // TODO?? interactive roll dice
+      turnCount = Math.floor(Math.random() * 7);
+    }
+  }
+
+  let computerPrevTurn = '';
+  let computerPrevTurnDest = '';
+  function computerTurn(){
+
+    // preact - if on process to a conquest 1/2
+    // check if item changed
+    // {result - proceed}
+    if (computerPrevTurn != '') {
+      // TODO
+      //
+      //{result could be}
+      //return
+      //return computerTurn()
+    }
+
+    // -act 0 - attck general - 65/100-
+    // get computer stronghold, echo out highest value
+    let strongestC = {name: '', value: 0}; // C = country
+    Object.keys(gameLog.gameMap).forEach(c => {
+      if (gameLog.gameMap[c].includes("e")) {
+        if (strongestC.name == '') {
+          strongestC.name = c;
+          strongestC.value = calculateStrength(gameLog.gameMap[c]);
+        } else if (strongestC.value < calculateStrength(gameLog.gameMap[c])) {
+          strongestC.name = c;
+          strongestC.value = calculateStrength(gameLog.gameMap[c]);
+        }
+      }
+    });
+
+    // TODO compare countries to see if a general is 7 away
+    let toAttackState = '';
+    NEIGHBOURING_STATES[strongestC.name].forEach(state => {
+      // 1 away
+      if (!gameLog.gameMap[state].includes("eG")) {
+        if (gameLog.gameMap[state].includes("G")) {
+          toAttackState = state;
+          // TODO 2-7 away
+        }
+      }
+    })
+
+    // act 2 - see nearest element and attack it with nearest stronger element 20/100
+
+    // act 1.2 - scan nearby 2nd strength-
+    //  7 away - shuffle order for randomness, have a not travel to path
+
+    // act 11 - move randomly
+
+
+    // TODO logic if computer wins
+
+    // TODO fire cannons if any one nearby, on turn end
+  }
+
+  // calc the amount of units on a tile
+  function calculateStrength(inhabitants) {
+    let x = (((inhabitants.match(new RegExp("eG", "g")) || []).length * 10) +
+    ((inhabitants.match(new RegExp("ei", "g")) || []).length));
+    return x;
   }
 
   function saveGameMenu() {
@@ -446,6 +516,10 @@
             selectionTerritory = 'x';
           }
         }
+      }
+
+      if (turnCount == 0) {
+        turnStart();
       }
   }
 
