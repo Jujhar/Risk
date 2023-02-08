@@ -245,6 +245,7 @@
     });
 
     // TODO compare countries to see if a general is 7 away
+    /*
     let toAttackState = '';
     NEIGHBOURING_STATES[strongestC.name].forEach(state => {
       // 1 away
@@ -255,6 +256,7 @@
         }
       }
     })
+    */
 
     // act 2 - see nearest element and attack it with nearest stronger element 20/100
 
@@ -507,11 +509,65 @@
             item.style.backgroundColor = '';
             if (won == 1) {
               this.appendChild(item);
-              // todo - add to log
+
+              // Add to log
+              if (item.innerHTML.includes("/unit.png")) {
+                if (gameLog.gameMap[this.id] == '') {
+                  gameLog.gameMap[this.id] = gameLog.gameMap[this.id] + 'i';
+                } else {
+                  gameLog.gameMap[this.id] = gameLog.gameMap[this.id] + '-i';
+                }
+              }
+              else if (item.innerHTML.includes("artillery.png")) {
+                if (gameLog.gameMap[this.id] == '') {
+                  gameLog.gameMap[this.id] = gameLog.gameMap[this.id] + 'A';
+                } else {
+                  gameLog.gameMap[this.id] = gameLog.gameMap[this.id] + '-A';
+                }
+              }
+              else if (item.innerHTML.includes("s/general.webp")) {
+                if (gameLog.gameMap[this.id] == '') {
+                  gameLog.gameMap[this.id] = gameLog.gameMap[this.id] + 'G';
+                } else {
+                  gameLog.gameMap[this.id] = gameLog.gameMap[this.id] + '-G';
+                }
+              }
             }
           })
           if (won == 1) {
             turnCount--;
+
+            // Remove fom log
+            selection.forEach(item => {
+              if (item.innerHTML.includes("/unit.png")) {
+                if (gameLog.gameMap[selectionTerritory].includes("-i")) {
+                  gameLog.gameMap[selectionTerritory] =
+                  gameLog.gameMap[selectionTerritory].replace('-i','');
+                } else {
+                  gameLog.gameMap[selectionTerritory] =
+                  gameLog.gameMap[selectionTerritory].replace('i','');
+                }
+              }
+              else if (item.innerHTML.includes("artillery.png")) {
+                if (gameLog.gameMap[selectionTerritory].includes("-A")) {
+                  gameLog.gameMap[selectionTerritory] =
+                  gameLog.gameMap[selectionTerritory].replace('-A','');
+                } else {
+                  gameLog.gameMap[selectionTerritory] =
+                  gameLog.gameMap[selectionTerritory].replace('A','');
+                }
+              }
+              else if (item.innerHTML.includes("s/general.webp")) {
+                if (gameLog.gameMap[selectionTerritory].includes("-G")) {
+                  gameLog.gameMap[selectionTerritory] =
+                  gameLog.gameMap[selectionTerritory].replace('-G','');
+                } else {
+                  gameLog.gameMap[selectionTerritory] =
+                  gameLog.gameMap[selectionTerritory].replace('G','');
+                }
+              }
+            });
+
             selection = [];
             selectionTerritory = 'x';
           }
