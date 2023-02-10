@@ -3,6 +3,7 @@
   import UnitPlacements from './UnitPlacements.svelte';
   import Pieces from './Board/Pieces.svelte';
   import { NEIGHBOURING_STATES } from './Board/MapMovement.svelte';
+
   import { onMount } from 'svelte';
   onMount(() => {
     window.scrollTo(400,1000);
@@ -11,6 +12,8 @@
   let turnCount = 3;
   let selectionTerritory = 'x';
   let selection = [];
+
+  let computerMove = '';
 
   let localPlay = false;
   let territoriesSetStart = 14;
@@ -155,6 +158,22 @@
     }
 	}
 
+  let toAttackState = '';
+  let inProximity = [];
+  function lookAroundProx(state){
+    Object.keys(gameLog.gameMap).forEach(country => {
+      if (state == country) {
+        if (!gameLog.gameMap[state].includes("eG")) {
+          if (gameLog.gameMap[state].includes("G")) {
+            toAttackState = state;
+            inProximity = [];
+          }
+        }
+        inProximity.push(NEIGHBOURING_STATES[country]);
+      }
+    });
+  }
+
   function deSelect() {
     selection.forEach(item=>{
       item.style.backgroundColor = '';
@@ -229,7 +248,9 @@
       //return computerTurn()
     }
 
-    // -act 0 - attck general - 65/100-
+    // #act 0 - attack general - 65/100-
+    computerMove = 'act-0';
+
     // get computer stronghold, echo out highest value
     let strongestC = {name: '', value: 0}; // C = country
     Object.keys(gameLog.gameMap).forEach(c => {
@@ -244,21 +265,25 @@
       }
     });
 
-    // TODO compare countries to see if a general is 7 away
-    /*
-    let toAttackState = '';
+    // Compare countries to see if a general is 7 away
+    inProximity = [];
     NEIGHBOURING_STATES[strongestC.name].forEach(state => {
-      // 1 away
-      if (!gameLog.gameMap[state].includes("eG")) {
-        if (gameLog.gameMap[state].includes("G")) {
-          toAttackState = state;
-          // TODO 2-7 away
-        }
+      for (let i = 0; i <= 7; i++) {
+        lookAroundProx(state)
+        inProximity.forEach(x=>{
+          x.forEach(y=>{
+            lookAroundProx(y);
+          })
+        });
       }
-    })
-    */
+    });
 
-    // act 2 - see nearest element and attack it with nearest stronger element 20/100
+    // TODO Attack General -toAttackState
+    //   calculate strength else go to next step
+    //  or move towards and save remaining moves for next turn -checking if general is still there
+
+
+    // #act 2 - see nearest element and attack it with nearest stronger element 20/100
 
     // act 1.2 - scan nearby 2nd strength-
     //  7 away - shuffle order for randomness, have a not travel to path
