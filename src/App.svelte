@@ -516,6 +516,12 @@
             }
           })
 
+          // Restrict dropping a piece to a far away territory
+          if (!NEIGHBOURING_STATES[selectionTerritory].includes(this.id)){
+            won == 0;
+            return;
+          }
+
           if (won == 1) {
             if (opposition > 0) {
               this.innerHTML = '';
