@@ -149,6 +149,9 @@
   let saveFileName = null;
   let fileinput;
 
+  // init
+  gameSetup('dev');
+
   function handleClick() {
     if ((selectionTerritory == 'x' || selectionTerritory == this.parentElement.id) &&
           infantryStart == 0 && generalsStart == 0 && artilleryStart == 0) {
@@ -950,7 +953,7 @@
 <body>
 
 <!-- Start screen -->
-<div id="setup_menu" style="background-color: #88dc88;">
+<div id="setup_menu" style="background-color: #88dc88; opacity: 0.9">
   <h1><b>Game Setup</b></h1>
 
   <section id="setup_menu_qck_button">
