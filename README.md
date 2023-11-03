@@ -8,6 +8,7 @@ If you played the classic version of this game then forget all those rules this 
 # Development
 ## Run locally
 copy contents of "index.html.dev" to "index.html"
+
 vite dev
 
 ## Basic rules
