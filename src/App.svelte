@@ -1360,7 +1360,7 @@
 body {
   height: 2400px;
   width: 3300px;
-  background-image: url('/pieces/board.jpg');
+  background-image: url('https://jujhar.github.io/Risk/pieces/board.jpg');
   background-size: auto;
 }
 
