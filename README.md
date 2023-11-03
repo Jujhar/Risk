@@ -4,6 +4,12 @@ Work In Progress - Unfortunately only basic movement is available, with attack l
 
 If you played the classic version of this game then forget all those rules this game has no resemblance to those rules.
 
+# Development
+## Run locally
+copy contents of "index.html.dev" to "index.html"
+vite dev
+
+
 # Basics
 ![image](https://user-images.githubusercontent.com/5521110/204102056-403e519b-bc14-4f45-8e49-a82d5446fb0b.png)
 
@@ -45,4 +51,4 @@ If you get a wild card, showing all three unit types and no territory than you g
 # Continental conquest.
 If you have a unit in each of the spaces of a continent than you get that amount of units listed at the start of your turn which you can place anywhere.
 
-![image](https://user-images.githubusercontent.com/5521110/204102573-5a907c27-ddff-4606-93c8-29f5eefe8ce2.png)
+![image](https://user-images.githubusercontent.com/5521110/204102573-5a907c27-ddff-4606-93c8-29f5eefe8ce2.png)\
