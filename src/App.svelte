@@ -1360,7 +1360,7 @@
 body {
   height: 2400px;
   width: 3300px;
-  background-image: url(board.jpg);
+  background-image: url('pieces/board.jpg');
   background-size: auto;
 }
 
