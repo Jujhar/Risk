@@ -168,7 +168,7 @@
   </div>
 {/if}
 
-<div style="padding-top: 10%;padding-bottom: 10%;padding-left: 10%;">
+<div style="padding-top: 10%;padding-bottom: 10%;padding-left: 10%;font-family: inherit;">
     <div class="flex text-6xl">
         <div class="w-1/3">
         </div>
@@ -240,6 +240,7 @@
 
 body {
   background-color: #ac6b29;
+  font-family: monospace;
 }
 .sq {
   border: 2px solid #A6C7BE;width:85px;

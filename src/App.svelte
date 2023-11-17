@@ -156,7 +156,7 @@
     if ((selectionTerritory == 'x' || selectionTerritory == this.parentElement.id) &&
           infantryStart == 0 && generalsStart == 0 && artilleryStart == 0) {
       selectionTerritory = this.parentElement.id
-      this.style.backgroundColor = 'green'
+      this.style.backgroundColor = '#007d80'
       selection.push(this);
     }
 	}
@@ -1118,8 +1118,8 @@
 <!-- game save -->
 
 <!-- Units remaining -->
-<div id="unitsRemaining" style="background-color: #3f8b18;position:fixed;bottom:0;left:30;margin-left: 1px; display: none;">
-  <div id="placementsDone" style="background-color: #65c365;">
+<div id="unitsRemaining" style="background-color: rgb(139 24 24 / 66%);position:fixed;bottom:0;left:30;margin-left: 1px; display: none;">
+  <div id="placementsDone" style="background-color: rgb(139 24 24);">
     You've placed all {initialTerrertoriesSet} territories.
   </div>
   <div>
@@ -1362,6 +1362,9 @@ body {
   width: 3300px;
   background-image: url('https://jujhar.github.io/Risk/pieces/board.jpg');
   background-size: auto;
+  font-family: 'Public Pixel';
+  src: url('https://rebabre.com/images/PublicPixel.woff2') format('woff2'),
+              url('https://rebabre.com/images/PublicPixel.woff') format('woff');
 }
 
 .tile {
@@ -1457,8 +1460,8 @@ body {
 
 .setup_input {
   background-color: aliceblue;
-  min-width: 37px;
-  max-width: 64px;
+  min-width: 84px;
+  max-width: 85px;
   text-align: center;
   font-size: 2em;
 }
