@@ -317,8 +317,37 @@
     let reader = new FileReader();
     reader.readAsText(file);
     reader.onload = function() {
+      console.log(gameLog); // pre
       gameLog = JSON.parse(reader.result);
       // todo rerender map
+      console.log("loaded");
+      console.log(gameLog); // after load
+
+      // add items
+      Object.keys(gameLog.gameMap).forEach(country => {
+        if (gameLog.gameMap[country] !== '') {
+          let units = gameLog.gameMap[country];
+          units = units.split("-");
+          console.log(units);
+
+          let ei = document.getElementById('EnemyInfantry').children[0];
+          let i = document.getElementById('UnitsInfantry').children[0];
+          
+          // loop through units and add it
+          units.forEach(unit => {
+            switch(unit) {
+              case 'i':
+                document.getElementById(country).appendChild(i);
+                break;
+              case 'ei':
+                document.getElementById(country).appendChild(ei);
+                break;
+              default:
+            }
+            
+          });
+        }
+      });
     };
   }
 
