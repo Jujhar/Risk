@@ -1,41 +1,28 @@
 // testing loading 
 
-describe('Can save while menu is open', () => {
+describe('It should look cool', () => {
   it('passes', () => {
     cy.visit('https://example.cypress.io')
   })
   
 })
 
-
-// project spec
-describe('On load shows state in debug window', () => {
+describe('It shouldnt distract', () => {
   it('passes', () => {
     cy.visit('https://example.cypress.io')
   })
   
 })
 
-describe('On load closes any open menus if open', () => {
+describe('It shouldnt look bummy?', () => {
   it('passes', () => {
     cy.visit('https://example.cypress.io')
   })
-    
-})
 
-  describe('closes any open menus if open', () => {
+  describe('Should disapear quickly -- just enough time', () => {
     it('passes', () => {
       cy.visit('https://example.cypress.io')
     })
-
   
 })
 
-describe('On load shows peice load of loaded file', () => {
-  it('passes', () => {
-    cy.visit('https://example.cypress.io')
-  })
-    
-})
-
-// Add game load functionality

@@ -2,7 +2,14 @@
 
 describe('Can save while menu is open', () => {
   it('passes', () => {
-    cy.visit('https://example.cypress.io')
+    //cy.visit('https://example.cypress.io')
+  })
+  
+})
+
+describe('Load all units', () => {
+  it('passes', () => {
+    //cy.visit('https://example.cypress.io')
   })
   
 })
@@ -11,21 +18,21 @@ describe('Can save while menu is open', () => {
 // project spec
 describe('On load shows state in debug window', () => {
   it('passes', () => {
-    cy.visit('https://example.cypress.io')
+    //cy.visit('https://example.cypress.io')
   })
   
 })
 
 describe('On load closes any open menus if open', () => {
   it('passes', () => {
-    cy.visit('https://example.cypress.io')
+    //cy.visit('https://example.cypress.io')
   })
     
 })
 
   describe('closes any open menus if open', () => {
     it('passes', () => {
-      cy.visit('https://example.cypress.io')
+    //  cy.visit('https://example.cypress.io')
     })
 
   
