@@ -1,4 +1,6 @@
-// testing loading 
+// notes - done
+
+// testing alert 
 
 describe('It should look cool', () => {
   it('passes', () => {

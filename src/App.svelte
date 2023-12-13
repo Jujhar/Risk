@@ -12,6 +12,7 @@
   let turnCount = 3;
   let selectionTerritory = 'x';
   let selection = [];
+  let alert = '';
 
   let computerMove = '';
 
@@ -151,6 +152,14 @@
 
   // init
   gameSetup('dev');
+
+  // display alert message
+  function pubAlert(x) {
+    alert = x;
+    setTimeout(() => {
+      alert = '';
+    }, 2000);
+  }
 
   function handleClick() {
     if ((selectionTerritory == 'x' || selectionTerritory == this.parentElement.id) &&
@@ -332,6 +341,10 @@
 
           let ei = document.getElementById('EnemyInfantry').children[0];
           let i = document.getElementById('UnitsInfantry').children[0];
+          let a = document.getElementById('UnitsArtillery').children[0];
+          let ea = document.getElementById('EnemyArtillery').children[0];
+          let eg = document.getElementById('EnemyGeneral').children[0];
+          let g = document.getElementById('UnitsGenerals').children[0];
           
           // loop through units and add it
           units.forEach(unit => {
@@ -342,12 +355,34 @@
               case 'ei':
                 document.getElementById(country).appendChild(ei);
                 break;
+              case 'A':
+                document.getElementById(country).appendChild(a);
+                break;
+              case 'eA':
+                document.getElementById(country).appendChild(ea);
+                break;
+              case 'G':
+                document.getElementById(country).appendChild(g);
+                break;
+              case 'eE':
+                document.getElementById(country).appendChild(eg);
+                break;
               default:
             }
             
           });
         }
       });
+
+      infantryStart = 0; 
+      generalsStart = 0;
+      artilleryStart = 0;
+      territoriesSetStart = 0;
+      document.getElementById('setup_menu').style.display = 'none';
+      document.getElementById('game_save').style.display = 'none';
+      document.body.style.cursor = `inherit`;
+
+      pubAlert('Game loaded');
     };
   }
 
@@ -953,6 +988,10 @@
     dlAnchorElem.click();
 	}
 
+    function downloadSaveFileOff() {
+    alert("Save functionality is not available game setup is underway.")
+	}
+
   // Save game online
   async function generateSaveFile () {
     var url = 'https://rebabre.com/app/risk/save.php';
@@ -1112,7 +1151,7 @@
 
 <!-- Game save -->
 <div id="game_save">
-  <a href="#" on:click={generateSaveFile}>Save game online</a>
+  <a href="#" on:click={document.getElementById('setup_menu').style.display == '' ?  downloadSaveFileOff : generateSaveFile}>Save game online</a>
   <br /><br />
 
   <a href="#">
@@ -1129,7 +1168,7 @@
 
   <a href="#"
      style="display: inline;"
-     on:click={downloadSaveFile}>
+     on:click={document.getElementById('setup_menu').style.display == '' ? downloadSaveFileOff : downloadSaveFile}>
       Save gamefile
   </a><a id="downloadAnchorElem" style="display:none"></a>
   <br /><br />
@@ -1145,6 +1184,19 @@
   <br />
 </div>
 <!-- game save -->
+
+
+<div style="color: white;
+text-shadow: -11px 20px 20px black;
+margin: 0 auto;
+position: fixed;
+top: 40%;
+text-align: center;
+z-index: 300000;
+margin-left: 19%;
+font-size: 2em;">
+  {alert}
+</div>
 
 <!-- Units remaining -->
 <div id="unitsRemaining" style="background-color: rgb(139 24 24 / 66%);position:fixed;bottom:0;left:30;margin-left: 1px; display: none;">

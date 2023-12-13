@@ -1,3 +1,5 @@
+// notes - done
+
 // testing loading 
 
 describe('Can save while menu is open', () => {
@@ -7,7 +9,10 @@ describe('Can save while menu is open', () => {
   
 })
 
-describe('Load all units', () => {
+
+
+
+describe('loaded Cursor resets', () => {
   it('passes', () => {
     //cy.visit('https://example.cypress.io')
   })
@@ -15,13 +20,6 @@ describe('Load all units', () => {
 })
 
 
-// project spec
-describe('On load shows state in debug window', () => {
-  it('passes', () => {
-    //cy.visit('https://example.cypress.io')
-  })
-  
-})
 
 describe('On load closes any open menus if open', () => {
   it('passes', () => {
@@ -46,3 +44,30 @@ describe('On load shows peice load of loaded file', () => {
 })
 
 // Add game load functionality
+
+
+
+
+
+
+
+
+
+
+// Archive tests
+
+describe('Load all units', () => {
+  it('passes', () => {
+    cy.visit('https://example.cypress.io')
+  })
+  
+})
+
+
+// project spec
+describe('On load shows state in debug window', () => {
+  it('passes', () => {
+    //cy.visit('https://example.cypress.io')
+  })
+  
+})
