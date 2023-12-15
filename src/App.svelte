@@ -150,6 +150,8 @@
   let saveFileName = null;
   let fileinput;
 
+  let x1 = 1 // run only once
+
   // init
   gameSetup('dev');
 
@@ -407,6 +409,7 @@
         setup_error = ' ';
         this.parentElement.style.display = 'none';
         document.getElementById('starting_turn').style.display = 'inherit';
+        pubAlert("Press button to roll");
       } else {
         if (totalStartingUnits > 0) {
           setup_error = 'Please use all available units';
@@ -471,6 +474,11 @@
       // place all remaining units
       else if ((infantryStart != 0 || generalsStart != 0 || artilleryStart != 0) && territoriesSetStart == 0) {
         document.getElementById('unitsRemaining').style.display = 'inherit';
+        if (x1 == 1) {
+        pubAlert('Territories set, now place units');
+          x1 = 0
+        }
+        //pubAlert('Place all units to start');
         setTimeout(() => {
           document.getElementById('placementsDone').style.visibility = "hidden";
         }, 7000);

@@ -2,6 +2,13 @@
 
 // testing alert 
 
+describe('Should display with each move', () => {
+  it('passes', () => {
+    //cy.visit('https://example.cypress.io')
+  })
+  
+})
+
 describe('It should look cool', () => {
   it('passes', () => {
     cy.visit('https://example.cypress.io')

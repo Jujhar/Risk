@@ -7,7 +7,7 @@
   let key;
   let keyCode;
   let state = 'none';
-  let initial = 'Press space to roll';
+  let initial = 'Press space to roll and then use arrow keys';
   let result = initial;
   let rollActive = false;
   let boxRight = 4;
