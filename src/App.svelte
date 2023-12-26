@@ -302,7 +302,89 @@
     //   calculate strength else go to next step
     //  or move towards and save remaining moves for next turn -checking if general is still there
 
+    shouldGeneralAttack();
+    console.log("general attack yes?= "+ shouldGeneralAttack());
+    console.log("attacking country= "+ enemeyStrongholdCountry());
 
+    function shouldGeneralAttack() {
+      let stronghold = 0;
+      let current_stronghold = 0;
+      let enemyStronghold = 0;
+      let current_enemyStronghold = 0;
+
+      Object.keys(gameLog.gameMap).forEach(country => {
+        if (gameLog.gameMap[country] !== '') {
+          let units = gameLog.gameMap[country];
+          units = units.split("-");
+          current_stronghold = 0;
+          current_enemyStronghold = 0;
+
+          units.forEach(unit => {
+            switch(unit) {
+              case 'i':
+                current_stronghold += 1;
+                break;
+              case 'ei':
+                current_enemyStronghold += 1;
+                break;
+              case 'G':
+                current_stronghold += 10;
+                break;
+              case 'eG':
+                current_enemyStronghold += 10;
+                break;
+              default:
+            }
+          });
+
+          if (enemyStronghold < current_enemyStronghold) {
+            enemyStronghold = current_enemyStronghold;
+          }
+
+          if (stronghold < current_stronghold) {
+            stronghold = current_stronghold;
+          }
+        }
+      });
+      if (enemyStronghold < stronghold) {
+          return 1;
+      } else {
+          return 0;
+      }
+    }
+
+    function enemeyStrongholdCountry() {
+      let enemyStronghold = 0;
+      let current_enemyStronghold = 0;
+      let return_country = '';
+
+
+      Object.keys(gameLog.gameMap).forEach(country => {
+        if (gameLog.gameMap[country] !== '') {
+          let units = gameLog.gameMap[country];
+          units = units.split("-");
+          current_enemyStronghold = 0;
+          units.forEach(unit => {
+            switch(unit) {
+              case 'ei':
+                current_enemyStronghold += 1;
+                break;
+              case 'eG':
+                current_enemyStronghold += 10;
+                break;
+              default:
+            }
+          });
+          if (enemyStronghold < current_enemyStronghold) {
+            enemyStronghold = current_enemyStronghold;
+            return_country = country;
+          }
+        }
+      });
+      return return_country;
+    }
+
+  
     // #act 2 - see nearest element and attack it with nearest stronger element 20/100
 
     // act 1.2 - scan nearby 2nd strength-
@@ -347,33 +429,45 @@
           units = units.split("-");
           console.log(units);
 
-          let ei = document.getElementById('EnemyInfantry').children[0];
-          let i = document.getElementById('UnitsInfantry').children[0];
-          let a = document.getElementById('UnitsArtillery').children[0];
-          let ea = document.getElementById('EnemyArtillery').children[0];
-          let eg = document.getElementById('EnemyGeneral').children[0];
-          let g = document.getElementById('UnitsGenerals').children[0];
+          let ei = document.getElementById('EnemyInfantry');
+          let ei_child = 0;
+          let i = document.getElementById('UnitsInfantry');
+          let i_child = 0;
+          let a = document.getElementById('UnitsArtillery');
+          let a_child = 0;
+          let ea = document.getElementById('EnemyArtillery');
+          let ea_child = 0;
+          let eg = document.getElementById('EnemyGeneral');
+          let eg_child = 0;
+          let g = document.getElementById('UnitsGenerals');
+          let g_child = 0;
           
           // loop through units and add it
           units.forEach(unit => {
             switch(unit) {
               case 'i':
-                document.getElementById(country).appendChild(i);
+                document.getElementById(country).appendChild(i.children[i_child]);
+                i_child++;
                 break;
               case 'ei':
-                document.getElementById(country).appendChild(ei);
+                document.getElementById(country).appendChild(ei.children[ei_child]);
+                ei_child++;
                 break;
               case 'A':
-                document.getElementById(country).appendChild(a);
+                document.getElementById(country).appendChild(a.children[a_child]);
+                a_child++;
                 break;
               case 'eA':
-                document.getElementById(country).appendChild(ea);
+                document.getElementById(country).appendChild(ea.children[ea_child]);
+                ea_child++;
                 break;
               case 'G':
-                document.getElementById(country).appendChild(g);
+                document.getElementById(country).appendChild(g.children[g_child]);
+                g_child++;
                 break;
-              case 'eE':
-                document.getElementById(country).appendChild(eg);
+              case 'eG':
+                document.getElementById(country).appendChild(eg.children[eg_child]);
+                eg_child++
                 break;
               default:
             }
@@ -1003,7 +1097,7 @@
 	}
 
     function downloadSaveFileOff() {
-    alert("Save functionality is not available game setup is underway.")
+    pubAlert("Save functionality is not available game setup is underway.")
 	}
 
   // Save game online
@@ -1165,7 +1259,7 @@
 
 <!-- Game save -->
 <div id="game_save">
-  <a href="#" on:click={document.getElementById('setup_menu').style.display == '' ?  downloadSaveFileOff : generateSaveFile}>Save game online</a>
+  <a href="#" on:click={document.getElementById('setup_menu').style.display == 'none' ?   downloadSaveFileOff : generateSaveFile}>Save game online</a>
   <br /><br />
 
   <a href="#">
@@ -1182,7 +1276,7 @@
 
   <a href="#"
      style="display: inline;"
-     on:click={document.getElementById('setup_menu').style.display == '' ? downloadSaveFileOff : downloadSaveFile}>
+     on:click={document.getElementById('setup_menu').style.display == 'none' ? downloadSaveFileOff : downloadSaveFile}>
       Save gamefile
   </a><a id="downloadAnchorElem" style="display:none"></a>
   <br /><br />
