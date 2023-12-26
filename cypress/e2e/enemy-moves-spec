@@ -1,0 +1,28 @@
+// notes - done
+
+// testing alert 
+
+describe('Should notification when all units place to go', () => {
+  it('passes', () => {
+    // Ready to go!
+    //cy.visit('https://example.cypress.io')
+  })
+  
+})
+
+describe('Computer should do a move', () => {
+    it('passes', () => {
+      //cy.visit('https://example.cypress.io')
+    })
+    
+  })
+
+
+describe('Should notification that computer did something', () => {
+    // Computer moved unit to rome!
+    it('passes', () => {
+      //cy.visit('https://example.cypress.io')
+    })
+    
+  })
+  

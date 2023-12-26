@@ -1,0 +1,37 @@
+
+
+
+describe('Check if destination is blocked and does not have more resources to capture, if so skip move callculation, if need to regroup label as act 3.5.5', () => {
+    it('passes', () => {
+      //cy.visit('https://example.cypress.io')
+    })
+    
+  })
+
+describe('Check if destination is able to be reached with current dice roll if so label act 3, if not label act 3.5', () => {
+  it('passes', () => {
+    //cy.visit('https://example.cypress.io')
+  })
+  
+})
+
+describe('Check if destination is able to be reached with current dice roll if so label act 3', () => {
+    it('passes', () => {
+      //cy.visit('https://example.cypress.io')
+    })
+    
+  })
+
+  
+describe('If act 3.5.5 once regrouped/morcha complete check if regroup is still strong enough, if so send 3.5 to random list of next move if not send 3.5.5 back to random list', () => {
+    it('passes', () => {
+      //cy.visit('https://example.cypress.io')
+    })
+    
+  })
+
+
+
+
+
+

@@ -221,6 +221,7 @@
   }
 
   function turnStart() {
+    pubAlert("Ready to Go!")
     if (needCard === true) {
       let x = Math.floor(Math.random() * gameLog.Deck.length);
         drawnCardHistory.push(gameLog.Deck[x]);
@@ -238,12 +239,17 @@
     }
 
     if (turnCount == 0){
+      pubAlert("Computer moved so and so");
       // Do computer turn
       // TODO skip first time if you go first
       computerTurn();
 
       // TODO?? interactive roll dice
       turnCount = Math.floor(Math.random() * 7);
+
+      setTimeout(() => {
+        pubAlert("You rolled " + turnCount);
+      }, 2000);
     }
   }
 

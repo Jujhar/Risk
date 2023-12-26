@@ -1,0 +1,28 @@
+
+
+describe('Calculate lowest enemy on field, then, find nearest strongest unit, if not found 
+check regroup stregth if still less build enemy strentgh, do alt move <- if able to  attack send back mive as act-2 else label as act-2.5 ', () => {
+  it('passes', () => {
+    //cy.visit('https://example.cypress.io')
+  })
+  
+})
+
+describe('if act 2 or 2.5 label as morcha in progress like so morcha-act2', () => {
+  it('passes', () => {
+    //cy.visit('https://example.cypress.io')
+  })
+  
+})
+
+
+
+describe('Should try to attack general on its own', () => {
+  it('passes', () => {
+    //cy.visit('https://example.cypress.io')
+  })
+  
+})
+
+
+
