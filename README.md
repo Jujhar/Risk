@@ -78,7 +78,7 @@ If you get a wild card, showing all 3 unit types and no territory than you get 1
 
 
 
-
+<!--
 ## Todo - Decision Record
 # How to share data between nodes
 
@@ -97,3 +97,4 @@ What is the change that we're proposing and/or doing?
 ## Consequences
 
 What becomes easier or more difficult to do because of this change?
+-->
