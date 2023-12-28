@@ -1,7 +1,7 @@
 <em>Work In Progress - Unfortunately only basic movement is available, attack logic and multiplayer play still todo.</em>
 # Risk
 
-A single player / multiplayer (todo) online board game.
+A single player / multiplayer online board game.
 
 If you played the classic version of this game then forget all those rules this game has no resemblance to those rules.
 
@@ -9,7 +9,7 @@ If you played the classic version of this game then forget all those rules this 
 ## Run locally
 copy contents of "index.html.dev" to "index.html"
 
-vite dev
+$ vite dev
 
 ## Basic rules
 ![image](https://user-images.githubusercontent.com/5521110/204102056-403e519b-bc14-4f45-8e49-a82d5446fb0b.png)
