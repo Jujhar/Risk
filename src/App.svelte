@@ -749,7 +749,7 @@
     if (error == false) {
       if (totalStartingUnits == 0) {
         setup_error = ' ';
-        this.parentElement.style.display = 'none';
+        this.parentElement.parentElement.style.display = 'none';
         document.getElementById('starting_turn').style.display = 'inherit';
         pubAlert("Press button to roll");
       } else {
@@ -1389,6 +1389,7 @@
 
   <br>
   <br>
+  <section id="an1">
   Starting territories
   <br>
   <input bind:value={territoriesSetStart} step="1" type="number" class="setup_input"
@@ -1397,8 +1398,9 @@
     <span class="star_error">❊</span>
   {/if}
   <br>
+  </section>
 
-
+  <section id="an2">
   <br>
   Starting units - remaining units pts.
   <br>
@@ -1411,8 +1413,10 @@
 
   <br>
   <br>
+  </section>
   <br>
 
+  <section id="an3">
   <input bind:value={generalsStart}
     type="number"
     class="setup_input"
@@ -1459,15 +1463,18 @@
     <br />
   {/if}
 
+
   <button
     class="button"
     on:click={doneSetup}>
     Done
   </button>
+
   <br>
   <br>
   <em style="color:green; text-shadow: 2px -4px 10px #faffb5;">{setup_error}</em>
   <br>
+</section>
 </div>
 <!-- start screen -->
 
@@ -1920,5 +1927,32 @@ body {
 
 .P2box input {
   color: #44002eb5;
+}
+
+/* SplitText */
+#an1 {
+  animation: fadeIn 0.1s ease-in both;
+  color:chocolate;
+} 
+
+#an2 {
+  animation: fadeIn 0.4s ease-in both;
+  color:aquamarine;
+} 
+
+#an3 {
+  animation: fadeIn 0.9s ease-in both;
+  color: #888b60;
+} 
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translate3d(0, -20%, 0);
+	}
+	to {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
 }
 </style>
