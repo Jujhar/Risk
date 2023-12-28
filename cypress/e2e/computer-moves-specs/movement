@@ -1,0 +1,21 @@
+should speficy country moving to
+✅
+
+should check if can still move there (vai `move: going to x`)
+❌
+write alternative function that also checks if a route is available avoiding a conflict
+condintion should come up if movment fial.. before giving up check if alterntive route 
+.. then 
+fial.. 
+
+should pick units who are moving and note their attack streghth
+
+
+should find shortest unblocked route but not heistate to attack once
+?
+
+should get long route (higer than dice range)
+
+should then check if anyone in range of short route that can be attacked
+
+should continue off from last time. move: going to x

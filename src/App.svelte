@@ -256,6 +256,7 @@
   let computerPrevTurn = '';
   let computerPrevTurnDest = '';
   function computerTurn(){
+    let computerRoll = Math.floor(Math.random() * 7);
 
     // preact - if on process to a conquest 1/2
     // check if item changed
@@ -382,6 +383,247 @@
         }
       });
       return return_country;
+    }
+
+    //move("Afghanistan", "China", "All")
+    function move(to, from, units) {
+      // TODO
+    }
+
+    // default example = getDistance("Afganistan", "China", 1));
+    //                   > Ural,Ukraine
+    function getDistance(to, from, d) {
+      let level = 0;
+      let path = [];
+      NEIGHBOURING_STATES[from].forEach(state => {
+        if (state == to) {
+          d = 1
+          level = 1
+          path=[state];
+        } else {
+          if (level != 1) {
+            NEIGHBOURING_STATES[state].forEach(state2 => {
+              if (state2 == to) {
+                d = 2
+                level = 2
+                path = [state, state2];
+              } else {
+                if (level != 2) {
+                  NEIGHBOURING_STATES[state2].forEach(state3 => {
+                    if (state3 == to) {
+                      d = 3
+                      level = 3
+                      path = [state, state2, state3];
+                    } else {
+                        if (level != 3) {
+                          NEIGHBOURING_STATES[state3].forEach(state4 => {
+                            if (state4 == to) {
+                              d = 4
+                              level = 4
+                              path = [state, state2, state3, state4];
+                            } else {
+                              if (level != 4) {
+                                NEIGHBOURING_STATES[state4].forEach(state5 => {
+                                  if (state5 == to) {
+                                    d = 5
+                                    level = 5
+                                    path = [state, state2, state3, state4, state5];
+                                  } else {
+                                  if (level != 5) {
+                                    NEIGHBOURING_STATES[state5].forEach(state6 => {
+                                      if (state6 == to) {
+                                        d = 6
+                                        level = 6
+                                        path = [state, state2, state3, state4, state5, state6];
+                                      } else {
+                                  if (level != 6) {
+                                    if (typeof NEIGHBOURING_STATES[state6] !== 'undefined' && NEIGHBOURING_STATES[state6] !== null) {
+                                    NEIGHBOURING_STATES[state6].forEach(state7 => {
+                                      if (state7 == to) {
+                                        d = 7
+                                        level = 7
+                                        path = [state, state2, state3, state4, state5, state6, state7];
+                                      } else {
+                                  if (level != 7) {
+                                    if (typeof NEIGHBOURING_STATES[state7] !== 'undefined' && NEIGHBOURING_STATES[state7] !== null) {
+                                    NEIGHBOURING_STATES[state7].forEach(state8 => {
+                                      if (state8 == to) {
+                                        d = 8
+                                        level = 8
+                                        path = [state, state2, state3, state4, state5, state6, state7, state8];
+                                      } else {
+                                  if (level != 8) {
+                                    if (typeof NEIGHBOURING_STATES[state8] !== 'undefined' && NEIGHBOURING_STATES[state8] !== null) {
+                                    NEIGHBOURING_STATES[state8].forEach(state9 => {
+                                      if (state9 == to) {
+                                        d = 9
+                                        level = 9
+                                        path = [state, state2, state3, state4, state5, state6, state7, state8, state9];
+                                      } else {
+                                  if (level != 9) {
+                                    if (typeof NEIGHBOURING_STATES[state9] !== 'undefined' && NEIGHBOURING_STATES[state9] !== null) {
+                                    NEIGHBOURING_STATES[state9].forEach(state10 => {
+                                      if (state10 == to) {
+                                        d = 10
+                                        level = 10
+                                        path = [state, state2, state3, state4, state5, state6, state7, state8, state9, state10];
+                                      } else {
+                                  if (level != 10) {
+                                    if (typeof NEIGHBOURING_STATES[state10] !== 'undefined' && NEIGHBOURING_STATES[state10] !== null) {
+                                    NEIGHBOURING_STATES[state10].forEach(state11 => {
+                                      if (state11 == to) {
+                                        d = 11
+                                        level = 11
+                                        path = [state, state2, state3, state4, state5, state6, state7, state8, state9, state10, state11];
+                                      } else {
+                                  if (level != 11) {
+                                    if (typeof NEIGHBOURING_STATES[state11] !== 'undefined' && NEIGHBOURING_STATES[state11] !== null) {
+                                    NEIGHBOURING_STATES[state11].forEach(state12 => {
+                                      if (state12 == to) {
+                                        d = 12
+                                        level = 12
+                                        path = [state, state2, state3, state4, state5, state6, state7, state8, state9, state10, state11, state12];
+                                      } else {
+                                  if (level != 12) {
+                                    if (typeof NEIGHBOURING_STATES[state12] !== 'undefined' && NEIGHBOURING_STATES[state12] !== null) {
+                                    NEIGHBOURING_STATES[state12].forEach(state13 => {
+                                      if (state13 == to) {
+                                        d = 13
+                                        level = 13
+                                        path = [state, state2, state3, state4, state5, state6, state7, state8, state9, state10, state11, state12, state13];
+                                      } else {
+                                  if (level != 13) {
+                                    if (typeof NEIGHBOURING_STATES[state13] !== 'undefined' && NEIGHBOURING_STATES[state13] !== null) {
+                                    NEIGHBOURING_STATES[state13].forEach(state14 => {
+                                      if (state14 == to) {
+                                        d = 14
+                                        level = 14
+                                        path = [state, state2, state3, state4, state5, state6, state7, state8, state9, state10, state11, state12, state13, state14];
+                                      } else {
+                                  if (level != 14) {
+                                    if (typeof NEIGHBOURING_STATES[state14] !== 'undefined' && NEIGHBOURING_STATES[state14] !== null) {
+                                    NEIGHBOURING_STATES[state14].forEach(state15 => {
+                                      if (state15 == to) {
+                                        d = 15
+                                        level = 15
+                                        path = [state, state2, state3, state4, state5, state6, state7, state8, state9, state10, state11, state12, state13, state14, state15];
+                                      } else {
+                                  if (level != 15) {
+                                    if (typeof NEIGHBOURING_STATES[state15] !== 'undefined' && NEIGHBOURING_STATES[state15] !== null) {
+                                    NEIGHBOURING_STATES[state15].forEach(state16 => {
+                                      if (state16 == to) {
+                                        d = 16
+                                        level = 16
+                                        path = [state, state2, state3, state4, state5, state6,state7, state8, state9, state10, state11, state12, state13, state14, state15, state16];
+                                      } else {
+                                  if (level != 16) {
+                                    if (typeof NEIGHBOURING_STATES[state16] !== 'undefined' && NEIGHBOURING_STATES[state16] !== null) {
+                                    NEIGHBOURING_STATES[state16].forEach(state17 => {
+                                      if (state17 == to) {
+                                        d = 17
+                                        level = 17
+                                        path = [state, state2, state3, state4, state5, state6, state7, state8, state9, state10, state11, state12, state13, state14, state15,state16,state17];
+                                      } else {
+                                  if (level != 17) {
+                                    if (typeof NEIGHBOURING_STATES[state17] !== 'undefined' && NEIGHBOURING_STATES[state17] !== null) {
+                                    NEIGHBOURING_STATES[state17].forEach(state18 => {
+                                      if (state18 == to) {
+                                        d = 18
+                                        level = 18
+                                        path = [state, state2, state3, state4, state5, state6, state7, state8, state9, state10, state11, state12, state13, state14, state15,state16,state17, state18];
+                                      } else {
+                                  if (level != 18) {
+                                    if (typeof NEIGHBOURING_STATES[state18] !== 'undefined' && NEIGHBOURING_STATES[state18] !== null) {
+                                    NEIGHBOURING_STATES[state18].forEach(state19 => {
+                                      if (state19 == to) {
+                                        d = 19
+                                        level = 19
+                                        path = [state, state2, state3, state4, state5, state6, state7, state8, state9, state10, state11, state12, state13, state14, state15,state16,state17, state18, state19];
+                                      } else {
+                                  if (level != 19) {
+                                    if (typeof NEIGHBOURING_STATES[state19] !== 'undefined' && NEIGHBOURING_STATES[state19] !== null) {
+                                    NEIGHBOURING_STATES[state19].forEach(state20 => {
+                                      if (state20 == to) {
+                                        d = 20
+                                        level = 20
+                                        path = [state, state2, state3, state4, state5, state6, , state7, state8, state9, state10, state11, state12, state13, state14, state15,state16,state17, state18, state19, state20];
+                                      } else {
+                                }
+
+                                    }); }
+                                  }
+                                }
+
+                                    }); }
+                                  }
+                                }
+
+                                    }); }
+                                  }
+                                }
+
+                                    }); }
+                                  }
+                                }
+
+                                    }); }
+                                  }
+                                }
+
+                                    }); }
+                                  }
+                                }
+
+                                    }); }
+                                  }
+                                }
+                                    }); }
+                                  }
+                                }
+
+                                    }); }
+                                  }
+                                }
+
+                                    }); }
+                                  }
+                                }
+
+                                    }); }
+                                  }
+                                }
+
+                                    }); }
+                                  }
+                                }
+
+
+                                    }); }
+                                  }
+                                }
+
+                                    }); }
+                                  }
+                                }
+
+
+                                    });
+                                  }
+                                } 
+                                });
+                              } 
+                            } 
+                          });
+                        }
+                      } 
+                  });
+                }
+              } 
+            });
+          }
+        }
+      });
+      return path
     }
 
   
