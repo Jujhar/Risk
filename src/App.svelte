@@ -272,6 +272,7 @@
     // #act 0 - attack general - 65/100-
     computerMove = 'act-0';
 
+    /*
     // get computer stronghold, echo out highest value
     let strongestC = {name: '', value: 0}; // C = country
     Object.keys(gameLog.gameMap).forEach(c => {
@@ -298,14 +299,16 @@
         });
       }
     });
+    */
 
     // TODO Attack General -toAttackState
     //   calculate strength else go to next step
     //  or move towards and save remaining moves for next turn -checking if general is still there
 
-    shouldGeneralAttack();
-    console.log("general attack yes?= "+ shouldGeneralAttack());
-    console.log("attacking country= "+ enemeyStrongholdCountry());
+    
+    if (shouldGeneralAttack() == 1){
+        move(locateHumanGeneral(), enemeyStrongholdCountry(), "All");
+    };
 
     function shouldGeneralAttack() {
       let stronghold = 0;
@@ -347,7 +350,7 @@
           }
         }
       });
-      if (enemyStronghold < stronghold) {
+      if (enemyStronghold > stronghold) {
           return 1;
       } else {
           return 0;
@@ -385,16 +388,134 @@
       return return_country;
     }
 
-    //move("Afghanistan", "China", "All")
+    // Returns highest area to attack
+    function locateHumanGeneral() {
+      let return_country = '';
+      let enemyStronghold = 0;
+      let current_enemyStronghold = 0;
+
+      Object.keys(gameLog.gameMap).forEach(country => {
+        if (gameLog.gameMap[country] !== '') {
+          let units = gameLog.gameMap[country];
+          units = units.split("-");
+          current_enemyStronghold = 0;
+
+          units.forEach(unit => {
+            switch(unit) {
+              case 'G':
+                current_enemyStronghold += 1;
+                break;
+            }
+          });
+        }
+        if (enemyStronghold < current_enemyStronghold) {
+            enemyStronghold = current_enemyStronghold;
+            return_country = country;
+          }
+      });
+      if (enemyStronghold == 0) {
+            Object.keys(gameLog.gameMap).forEach(country => {
+          if (gameLog.gameMap[country] !== '') {
+            let units = gameLog.gameMap[country];
+            units = units.split("-");
+            current_enemyStronghold = 0;
+
+            units.forEach(unit => {
+              switch(unit) {
+                case 'i':
+                  current_enemyStronghold += 1;
+                  break;
+              }
+            });
+          }
+          if (enemyStronghold < current_enemyStronghold) {
+              enemyStronghold = current_enemyStronghold;
+              return_country = country;
+            }
+        });
+        }
+
+      return return_country;
+    }
+
+    // act 2
+    // TODO
+
     function move(to, from, units) {
-      // TODO
+      let x = getDistance(to, from);
+      if (computerRoll >= x.length) {
+        pubAlert("Enemy took over " + to + "!")
+        computerRoll = computerRoll - x.length;
+
+          // replace units
+          document.getElementById(to).innerHTML = '';
+          document.getElementById(from).innerHTML = '';
+          gameLog.gameMap[to] = gameLog.gameMap[from];
+
+          // add / render enemy units
+          let country = to;
+            if (gameLog.gameMap[country] !== '') {
+              let units = gameLog.gameMap[country];
+              units = units.split("-");
+
+              let ei = document.getElementById('EnemyInfantry');
+              let ei_child = 0;
+              let i = document.getElementById('UnitsInfantry');
+              let i_child = 0;
+              let a = document.getElementById('UnitsArtillery');
+              let a_child = 0;
+              let ea = document.getElementById('EnemyArtillery');
+              let ea_child = 0;
+              let eg = document.getElementById('EnemyGeneral');
+              let eg_child = 0;
+              let g = document.getElementById('UnitsGenerals');
+              let g_child = 0;
+              
+              // loop through units and add it
+              units.forEach(unit => {
+                switch(unit) {
+                  case 'i':
+                    document.getElementById(country).appendChild(i.children[i_child]);
+                    i_child++;
+                    break;
+                  case 'ei':
+                    document.getElementById(country).appendChild(ei.children[ei_child]);
+                    ei_child++;
+                    break;
+                  case 'A':
+                    document.getElementById(country).appendChild(a.children[a_child]);
+                    a_child++;
+                    break;
+                  case 'eA':
+                    document.getElementById(country).appendChild(ea.children[ea_child]);
+                    ea_child++;
+                    break;
+                  case 'G':
+                    document.getElementById(country).appendChild(g.children[g_child]);
+                    g_child++;
+                    break;
+                  case 'eG':
+                    document.getElementById(country).appendChild(eg.children[eg_child]);
+                    eg_child++
+                    break;
+                  default:
+                }
+                
+              });
+            }
+      }
+      else {
+        // TODONOW
+        // MOVE SOME
+      }
     }
 
     // default example = getDistance("Afganistan", "China", 1));
     //                   > Ural,Ukraine
-    function getDistance(to, from, d) {
+    function getDistance(to, from) {
       let level = 0;
       let path = [];
+      let d = 1;
       NEIGHBOURING_STATES[from].forEach(state => {
         if (state == to) {
           d = 1
