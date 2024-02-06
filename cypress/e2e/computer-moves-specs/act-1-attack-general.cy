@@ -7,6 +7,13 @@ if opponent stronghold is of lesser value', () => {
   
 })
 
+describe('When calculating stonghold should get exact value of all terrotiers and units', () => {
+  it('passes', () => {
+    //cy.visit('https://example.cypress.io')
+  })
+  
+})
+
 describe('If not stronger can general gather up enough units, if not do other move/act', () => {
   it('passes', () => {
     //cy.visit('https://example.cypress.io')

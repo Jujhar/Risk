@@ -13,6 +13,7 @@
   let selectionTerritory = 'x';
   let selection = [];
   let alert = '';
+  let disableSelect = 0;
 
   let computerMove = '';
 
@@ -26,10 +27,9 @@
   let generalsStartP2 = 1;
   let artilleryStartP2 = 1;
   let infantryStartP2 = 25;
-  let drawnCardHistory = [{c:"", u:""}];
+  
   $: drawnCardHistoryIndex = 0;
   let needCard = true;
-  let drawnCardHistoryP2 = [{c:"", u:""}];
   let needCardP2 = true;
   let setup_error = " "
   let setup_error_top = " "
@@ -51,6 +51,8 @@
 
   let gameLog = {
     settings: {},
+    drawnCardHistory: [{c:"", u:""}],
+    drawnCardHistoryP2: [{c:"", u:""}],
     /**
       gameMap permitted values legend
       "G,A,i,eG,eA,ei"
@@ -163,14 +165,53 @@
     }, 2000);
   }
 
+  // click-movin
   function handleClick() {
     if ((selectionTerritory == 'x' || selectionTerritory == this.parentElement.id) &&
           infantryStart == 0 && generalsStart == 0 && artilleryStart == 0) {
       selectionTerritory = this.parentElement.id
       this.style.backgroundColor = '#007d80'
       selection.push(this);
+
+      // is treasure 
+      if (selectionTerritory == gameLog.drawnCardHistory[drawnCardHistoryIndex].c){
+        console.log('youvemovedyertreasure' + gameLog.drawnCardHistory[drawnCardHistoryIndex].c)
+        let x = Math.floor(Math.random() * gameLog.Deck.length);
+        gameLog.drawnCardHistory.push(gameLog.Deck[x]);
+        gameLog.Deck.splice(x, 1);
+        needCard = false;
+        drawnCardHistoryIndex = drawnCardHistoryIndex+1
+        pubAlert("You drew "+ gameLog.drawnCardHistory[drawnCardHistoryIndex].c + ": " +
+          gameLog.drawnCardHistory[drawnCardHistoryIndex].u)
+        if (gameLog.drawnCardHistory[drawnCardHistoryIndex-1].u == 'i'){
+          document.body.style.cursor = `url('pieces/unit-c.png'), auto`;
+          disableSelect = 1;
+          infantryStart = 1;
+        }
+        if (gameLog.drawnCardHistory[drawnCardHistoryIndex-1].u == 'G'){
+          document.body.style.cursor = `url('pieces/general-c.png'), auto`;
+          disableSelect = 1;
+          generalsStart = 1;
+        }
+        if (gameLog.drawnCardHistory[drawnCardHistoryIndex-1].u == 'A'){
+          document.body.style.cursor = `url('pieces/artillery-c.png'), auto`;
+          disableSelect = 1;
+          artilleryStart = 1;
+        }
+        if (gameLog.drawnCardHistory[drawnCardHistoryIndex-1].u != 'W'){
+          document.body.style.cursor = `url('pieces/unit-c.png'), auto`;
+          disableSelect = 1;
+          generalsStart = 1;
+          artilleryStart = 1;
+          infantryStart = 1;
+        }
+      }
     }
 	}
+
+  function landOnTreasure(){
+
+  }
 
   let toAttackState = '';
   let inProximity = [];
@@ -223,17 +264,17 @@
   function turnStart() {
     pubAlert("Ready to Go!")
     if (needCard === true) {
-      let x = Math.floor(Math.random() * gameLog.Deck.length);
-        drawnCardHistory.push(gameLog.Deck[x]);
+        let x = Math.floor(Math.random() * gameLog.Deck.length);
+        gameLog.drawnCardHistory.push(gameLog.Deck[x]);
         gameLog.Deck.splice(x, 1);
         needCard = false;
-        console.log(drawnCardHistoryP2);
+        console.log(gameLog.drawnCardHistoryP2);
         drawnCardHistoryIndex = drawnCardHistoryIndex+1
     }
 
     if (needCardP2 === true) {
-      let x = Math.floor(Math.random() * gameLog.Deck.length);
-        drawnCardHistoryP2.push(gameLog.Deck[x]);
+        let x = Math.floor(Math.random() * gameLog.Deck.length);
+        gameLog.drawnCardHistoryP2.push(gameLog.Deck[x]);
         gameLog.Deck.splice(x, 1);
         needCardP2 = false;
     }
@@ -246,6 +287,9 @@
 
       // TODO?? interactive roll dice
       turnCount = Math.floor(Math.random() * 7);
+      if (turnCount == 0){
+        turnCount = 1;
+      }
 
       setTimeout(() => {
         pubAlert("You rolled " + turnCount);
@@ -781,7 +825,14 @@
     reader.onload = function() {
       console.log(gameLog); // pre
       gameLog = JSON.parse(reader.result);
-      // todo rerender map
+
+      // load states
+      drawnCardHistoryIndex = gameLog.drawnCardHistory.length - 1
+      needCard = false;
+      needCardP2 = false;
+      console.log(gameLog); // post
+
+      // rerender map
       console.log("loaded");
       console.log(gameLog); // after load
 
@@ -972,6 +1023,7 @@
             }
             else {
               document.body.style.cursor = `inherit`;
+              disableSelect = 0;
               turnStart();
             }
           }
@@ -999,6 +1051,7 @@
               }
               else {
                 document.body.style.cursor = `inherit`;
+                disableSelect = 0;
                 turnStart();
               }
             }
@@ -1022,6 +1075,7 @@
             generalsStart--;
             if (generalsStart == 0) {
               document.body.style.cursor = `inherit`;
+              disableSelect = 0;
               turnStart();
             }
           }
@@ -1030,7 +1084,7 @@
       else {
         if (turnCount > 0
             && selection.length > 0
-            && (this.childNodes.length == 0 || (selectionTerritory != this.id || selectionTerritory == 'x'))) {
+            && (this.childNodes.length == 0 || (selectionTerritory != this.id || selectionTerritory == 'x')) && disableSelect != 1) {
           let won = 0;
           let battleloc = gameLog.gameMap[this.id];
 
@@ -1708,7 +1762,7 @@ font-size: 2em;">
   <div style="position: absolute; left:200px; top:690px;">
     <big><big style="font-size: 4em;">{turnCount}</big></big><br />
     <span on:click={deSelect} class="clickable">🚫 Deselect Units</span><br />
-    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{drawnCardHistory[drawnCardHistoryIndex].c + ' ' + drawnCardHistory[drawnCardHistoryIndex].u}</span><br />
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{gameLog.drawnCardHistory[drawnCardHistoryIndex].c + ' ' + gameLog.drawnCardHistory[drawnCardHistoryIndex].u}</span><br />
     <span class="clickable" on:click={saveGameMenu} style="margin-top: -24px;">
       <img src="https://raw.githubusercontent.com/Silbad/pixa/main/icons/world.svg"
       alt="save on web icon"

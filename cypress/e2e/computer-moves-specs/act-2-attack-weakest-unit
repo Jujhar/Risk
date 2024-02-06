@@ -1,4 +1,10 @@
+have gereral attack any weeker unit nearby
+1- caclulate distances of all weaker units
+loop>if weeker get unit
+2- attack closeest, in dice roll
 
+act 1+2 if gneral is killable work towards it
+if not work towards killing small unit
 
 describe('Calculate lowest enemy on field, then, find nearest strongest unit, if not found 
 check regroup stregth if still less build enemy strentgh, do alt move <- if able to  attack send back mive as act-2 else label as act-2.5 ', () => {

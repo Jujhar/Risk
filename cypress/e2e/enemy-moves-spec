@@ -2,6 +2,15 @@
 
 // testing alert 
 
+All moves should have one main do or die spec before going down list of acts...
+defualt should move should be either thry to gain treusuer (50%) or regroupp units to build higher genrearl (50% unless already higher in that case do previous move.. )
+
+
+generallist
+[1] General attack
+[2] Cuntinontal capture / cleanse
+[3] Attack weakest unit
+
 describe('Should notification when all units place to go', () => {
   it('passes', () => {
     // Ready to go!

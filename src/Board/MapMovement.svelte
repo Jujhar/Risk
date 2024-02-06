@@ -7,7 +7,7 @@
             'Western United States':['Alberta', 'Ontario', 'Eastern United States', 'Central America'],
             'Eastern United States':['Western United States', 'Quebec', 'Ontario', 'Central America'],
             'Central America':['Venezuela', 'Eastern United States', 'Western United States'],
-            'Greenland':['Iceland', 'Northern Territory', 'Ontario', 'Quebec'],
+            'Greenland':['Iceland', 'Northwest Territory', 'Ontario', 'Quebec'],
             'Afghanistan':['Ukraine', 'Ural', 'China', 'India', 'Middle East'],
             'Middle East':['Southern Europe', 'Egypt', 'India', 'Afghanistan', 'Ukraine'],
             'India':['Middle East', 'China', 'Afghanistan', 'Siam'],

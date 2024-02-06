@@ -3,3 +3,13 @@ calculate which country has the greatest percet covered, if 100% do the next mos
 
 calculate if only one or two terroties missing check if no stronghold less than enemy strength if so publsih act-4.5 to random move list
 -
+
+have overall status of build terrorties (eg if on previous turn
+buiding terrortiors then 80% continue)
+
+If have 4 units near austrailia -> 90%
+
+If have many units -> 50%
+
+Develop function to move units to unoccupied terrortires
+
