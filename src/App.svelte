@@ -198,7 +198,7 @@
           disableSelect = 1;
           artilleryStart = 1;
         }
-        if (gameLog.drawnCardHistory[drawnCardHistoryIndex-1].u != 'W'){
+        if (gameLog.drawnCardHistory[drawnCardHistoryIndex-1].u == 'W'){
           document.body.style.cursor = `url('pieces/unit-c.png'), auto`;
           disableSelect = 1;
           generalsStart = 1;
