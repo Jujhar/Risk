@@ -1,0 +1,17 @@
+check gamelog by continent
+  piroirtizing by strongheld conteint. 
+  get_attack_scope()
+  goes on attacka if dice roll valids
+   if not saves for todo next move / moves towards it
+
+ingredients
+-strongheld_continent () array
+-get_attack_scope()
+   checks if you have presene in an eniemy contient
+   checks if you will win
+
+   randoms out between these two methods following
+   checks what is the most significant win (least difference..)
+   checks what is the most significant win (most dammage)
+
+   

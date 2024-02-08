@@ -2,7 +2,7 @@
   import Dice from './Dice.svelte';
   import UnitPlacements from './UnitPlacements.svelte';
   import Pieces from './Board/Pieces.svelte';
-  import { NEIGHBOURING_STATES } from './Board/MapMovement.svelte';
+  import { NEIGHBOURING_STATES, COUNTRY_CONTINENT } from './Board/MapMovement.svelte';
 
   import { onMount } from 'svelte';
   onMount(() => {
@@ -352,6 +352,8 @@
     
     if (shouldGeneralAttack() == 1){
         move(locateHumanGeneral(), enemeyStrongholdCountry(), "All");
+    } else {
+      comp_strongheld_continent();
     };
 
     function shouldGeneralAttack() {
@@ -484,6 +486,50 @@
 
     // act 2
     // TODO
+
+    function comp_strongheld_continent(){
+      let dat = comp_continent_data();
+      let highestContinent = '';
+      let highestContinentVal = 0;
+      let nContinents = [];
+      
+      Object.keys(dat).forEach(cont => {
+        if (dat[cont] >= highestContinentVal){
+          if (highestContinent != ''){
+            nContinents.push(highestContinent)
+          }
+          highestContinent = cont;
+          highestContinentVal = dat[cont];
+        }
+      });
+
+      return [highestContinent].concat(nContinents);
+    }
+
+    function comp_continent_data(){
+      let dat = {
+        'Australia':0,
+        'S. America':0,
+        'Africa':0,
+        'N. America':0,
+        'Europe':0,
+        'Asia':0,
+      }
+      Object.keys(gameLog.gameMap).forEach(country => {
+        let add = 0; // Any unit occupies space in territory count
+        let units = gameLog.gameMap[country];
+          units = units.split("-");
+          units.forEach(unit => {
+            if (unit.includes("e")){
+              add = 1;
+            }
+          });
+        if (add == 1){
+          dat[COUNTRY_CONTINENT[country]] += 1
+        }
+      });
+      return dat
+    }
 
     function move(to, from, units) {
       let x = getDistance(to, from);
