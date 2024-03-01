@@ -104,6 +104,9 @@
               'Western Australia':''},
     diceRoll: 0,
     turn: 'player 1', // 'computer'
+    togo: '', // move in progress but not enough dice roll 
+    //..(moveToSaveToGoLocation())
+    tofrom: '', // ibid. ..(moveToSaveToGoLocation())
     Deck: [{c:"Alaska", u:"i"},
            {c:"Northwest Territory", u:"A"},
            {c:"Alberta", u:"A"},
@@ -348,12 +351,16 @@
     // TODO Attack General -toAttackState
     //   calculate strength else go to next step
     //  or move towards and save remaining moves for next turn -checking if general is still there
-
+    // #themoves
     
     if (shouldGeneralAttack() == 1){
         move(locateHumanGeneral(), enemeyStrongholdCountry(), "All");
     } else {
-      comp_strongheld_continent();
+      
+      if (gameLog.togo == '') {
+        moveToSaveToGoLocation(gameLog.togo, gameLog.tofrom)
+      }
+      let attack_it = get_attack_scope(comp_strongheld_continent(), 'level-1');
     };
 
     function shouldGeneralAttack() {
@@ -484,6 +491,69 @@
       return return_country;
     }
 
+    // act move to pre
+    function moveToSaveToGoLocation(togo, tofrom) {
+
+      let attacked = 0;
+
+      // get stregth
+      let str = 0;
+      let units = gameLog.gameMap[tofrom];
+      units = units.split("-");
+      units.forEach(unit => {
+        if (unit.includes("i")){
+          str += 1;
+        } else if (unit.includes("G")){
+          str += 10;
+        }
+      });
+
+      let path = getDistance(togo, tofrom);
+      let y = 0;
+
+      while (computerRoll != 0 || y+1 == path.length) {
+
+        // check if attack needed
+        let def = 0;
+
+        Object.keys(gameLog.gameMap).forEach(country => {
+          if (path[y] == country){
+            let units = gameLog.gameMap[country];
+            units = units.split("-");
+            units.forEach(unit => {
+              if (unit.includes("e")){
+                def += 1;
+              } else if (unit.includes("eG")){
+                def += 10;
+              }
+            });
+          }
+        });
+
+        // attack if you have else abandon move
+        if (str > def && attacked == 0) {
+          if (y == 0){
+            moveSimple(path[y],tofrom);
+          } else {
+            moveSimple(path[y],path[y-1]);
+          }
+          togo = path[y];
+          tofrom = path[y-1];
+          if (y+1 == path.length){
+            togo = '';
+            tofrom = '';
+          }
+          computerRoll--;
+          if (def != 0){
+            attacked = 1;
+          }
+        } else {
+          break;
+        }
+        y++;
+      }     
+    }
+
     // act 2
     // TODO
 
@@ -529,6 +599,197 @@
         }
       });
       return dat
+    }
+
+    function get_attack_scope(places, l){
+      let attcked = 0;
+      let leastDiff = [];
+      let mostDmg = [];
+      let compStrength = {};
+      let compCountryStr = {};
+      let huStrength = {};
+
+      // Get computer stength
+      Object.keys(gameLog.gameMap).forEach(country => {
+
+        // check if in valid countinent
+        if (places.includes(COUNTRY_CONTINENT[country])) {
+        
+          let strengtha = 0; // Any unit occupies space in territory count
+          let units = gameLog.gameMap[country];
+            units = units.split("-");
+            units.forEach(unit => {
+              if (unit == "ei"){
+                strengtha += 1;
+              } else if (unit == "eG"){
+                strengtha += 10;
+              } 
+            });
+
+            if ((compStrength[COUNTRY_CONTINENT[country]]) == null) {
+              compStrength[COUNTRY_CONTINENT[country]] = strengtha;
+              if ((compCountryStr[country]) == null) {
+                compCountryStr[country] = strengtha;
+              } else {
+                compCountryStr[country] += strengtha;
+              }
+              
+            } else {
+              compStrength[COUNTRY_CONTINENT[country]] += strengtha;
+              if ((compCountryStr[country]) == null) {
+                compCountryStr[country] = strengtha;
+              } else {
+                compCountryStr[country] += strengtha;
+              }
+            }
+        }
+      });
+
+
+      Object.keys(gameLog.gameMap).forEach(country => {
+
+        // check if in valid countinent
+          if (places.includes(COUNTRY_CONTINENT[country])) {
+          
+          let strengtha = 0; // Any unit occupies space in territory count
+          let units = gameLog.gameMap[country];
+            units = units.split("-");
+            units.forEach(unit => {
+              if (unit == "i"){
+                strengtha += 1;
+              } else if (unit == "G"){
+                strengtha += 10;
+              } 
+            });
+
+            if ((huStrength[country]) == null) {
+              huStrength[country] = strengtha;
+            } else {
+              huStrength[country] += strengtha;
+            }
+        }
+
+        // Check if enemy in homeland
+        /// A. Homeland
+        let greatest = -Infinity;
+        let greatestCountry = '';
+        let key;
+        for (let x in compStrength) {
+          if (compStrength[x] > greatest) {
+            key = x;
+            greatestCountry = x;
+            greatest = compStrength[key];
+          }
+        }
+        let cpuPower = greatest
+
+        /// B. Is enemy there
+        let greatestAttack = '';
+        let greatest2 = -Infinity;
+        for (let x2 in huStrength) {
+          if (COUNTRY_CONTINENT[x2] == greatestCountry
+          && huStrength[x2] != 0 && greatestAttack < huStrength[x2]) {
+            greatestAttack = huStrength[x2];
+            greatest2 = x2;
+          }
+        }
+
+        if (greatest2 != -Infinity && attcked == 0){
+          attcked = 1;
+          move(greatest2, who_attack(greatest2, greatestAttack));
+        }
+
+        if (l == 2){
+          // Get all other continents
+        }
+      });
+      
+    }
+
+    function who_attack(loc, pwr_nded){
+      let eligable = [];
+
+      // echo out all coutries held by computer in continent.
+      Object.keys(gameLog.gameMap).forEach(country => {
+        if (COUNTRY_CONTINENT[loc] == COUNTRY_CONTINENT[country]) {
+          let strengtha = 0;
+          let units = gameLog.gameMap[country];
+            units = units.split("-");
+            units.forEach(unit => {
+              if (unit == "ei"){
+                strengtha += 1;
+              } else if (unit == "eG"){
+                strengtha += 10;
+              } 
+            });
+          if (strengtha > pwr_nded) {
+            eligable.push(country)
+          }
+        }
+      });
+
+      return eligable[Math.floor(Math.random()*eligable.length)];
+    }
+
+    function moveSimple(to, from){
+      document.getElementById(to.toString()).innerHTML = '';
+      document.getElementById(from.toString()).innerHTML = '';
+
+      gameLog.gameMap[to] = gameLog.gameMap[from];
+
+      // add / render enemy units
+      Object.keys(gameLog.gameMap).forEach(country => {
+        if (country == to) {
+        let units = gameLog.gameMap[from.toString()];
+        units = units.split("-");
+
+        let ei = document.getElementById('EnemyInfantry');
+        let ei_child = 0;
+        let i = document.getElementById('UnitsInfantry');
+        let i_child = 0;
+        let a = document.getElementById('UnitsArtillery');
+        let a_child = 0;
+        let ea = document.getElementById('EnemyArtillery');
+        let ea_child = 0;
+        let eg = document.getElementById('EnemyGeneral');
+        let eg_child = 0;
+        let g = document.getElementById('UnitsGenerals');
+        let g_child = 0;
+        
+        // loop through units and add it
+        units.forEach(unit => {
+          switch(unit) {
+            case 'i':
+              document.getElementById(country).appendChild(i.children[i_child]);
+              i_child++;
+              break;
+            case 'ei':
+              document.getElementById(country).appendChild(ei.children[ei_child]);
+              ei_child++;
+              break;
+            case 'A':
+              document.getElementById(country).appendChild(a.children[a_child]);
+              a_child++;
+              break;
+            case 'eA':
+              document.getElementById(country).appendChild(ea.children[ea_child]);
+              ea_child++;
+              break;
+            case 'G':
+              document.getElementById(country).appendChild(g.children[g_child]);
+              g_child++;
+              break;
+            case 'eG':
+              document.getElementById(country).appendChild(eg.children[eg_child]);
+              eg_child++
+              break;
+            default:
+          }
+          
+        });
+        }
+      });
+      gameLog.gameMap[from] = '';
     }
 
     function move(to, from, units) {

@@ -1,5 +1,5 @@
 check gamelog by continent
-  piroirtizing by strongheld conteint. 
+ `piroirtizing by strongheld conteint. 
   get_attack_scope()
   goes on attacka if dice roll valids
    if not saves for todo next move / moves towards it
@@ -7,11 +7,44 @@ check gamelog by continent
 ingredients
 -strongheld_continent () array
 -get_attack_scope()
+   1
    checks if you have presene in an eniemy contient
+   
+   2
    checks if you will win
 
    randoms out between these two methods following
+   2 queries
+  
+   record 3
    checks what is the most significant win (least difference..)
-   checks what is the most significant win (most dammage)
+   country: 2
 
+   record 4
+   checks what is the most significant win (most dammage)
    
+   
+
+
+   /// extra
+    //x Record difference
+
+          //??
+        //if (add == 1){
+          //dat[COUNTRY_CONTINENT[country]] += 1
+        //}
+      //x do another check if another weeker unit that's closer does not satisfiy attack 
+
+
+//??
+       function continentAttack(){
+      
+      //loop through to see if weekest units to use for attack
+      
+      //check dice roll .. if not enough
+       //if not possible regroup in neighbouring area 
+       //##add to turn todo
+      //if enough 
+       //attack 
+
+    }
