@@ -1857,9 +1857,9 @@
   <h1><b>Game Setup</b></h1>
 
   <section id="setup_menu_qck_button">
-  <span on:click={()=>{gameSetup('dev')}}><i>Dev</i></span>&nbsp;&nbsp;
-  <span on:click={()=>{gameSetup('quick')}}><i>Quick game</i></span>&nbsp;&nbsp;
-  <span on:click={()=>{gameSetup('normal')}}><i>Normal game</i></span>
+  <span class='nrmtx' on:click={()=>{gameSetup('dev')}}><i>Dev</i></span>&nbsp;&nbsp;
+  <span class='nrmtx' on:click={()=>{gameSetup('quick')}}><i>Quick game</i></span>&nbsp;&nbsp;
+  <span class='nrmtx' on:click={()=>{gameSetup('normal')}}><i>Normal game</i></span>
   </section>
   <br>
 
@@ -2291,6 +2291,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.nrmtx {
+  font-family:Arial, Helvetica, sans-serif;
+  margin-top: 10px;
 }
 
 .clickable {
