@@ -2283,8 +2283,6 @@ body {
   background-image: url('https://jujhar.github.io/Risk/pieces/board.jpg');
   background-size: auto;
   font-family: 'Public Pixel';
-  src: url('https://rebabre.com/images/PublicPixel.woff2') format('woff2'),
-              url('https://rebabre.com/images/PublicPixel.woff') format('woff');
 }
 
 .tile {
@@ -2441,5 +2439,10 @@ body {
 		opacity: 1;
 		transform: translate3d(0, 0, 0);
 	}
+}
+
+@font-face {
+  font-family: 'Public Pixel';
+  src: url('PublicPixel.ttf');
 }
 </style>
