@@ -27,7 +27,7 @@
   let generalsStartP2 = 1;
   let artilleryStartP2 = 1;
   let infantryStartP2 = 25;
-  
+
   $: drawnCardHistoryIndex = 0;
   let needCard = true;
   let needCardP2 = true;
@@ -104,7 +104,7 @@
               'Western Australia':''},
     diceRoll: 0,
     turn: 'player 1', // 'computer'
-    togo: '', // move in progress but not enough dice roll 
+    togo: '', // move in progress but not enough dice roll
     //..(moveToSaveToGoLocation())
     tofrom: '', // ibid. ..(moveToSaveToGoLocation())
     Deck: [{c:"Alaska", u:"i"},
@@ -176,7 +176,7 @@
       this.style.backgroundColor = '#007d80'
       selection.push(this);
 
-      // is treasure 
+      // is treasure
       if (selectionTerritory == gameLog.drawnCardHistory[drawnCardHistoryIndex].c){
         console.log('youvemovedyertreasure' + gameLog.drawnCardHistory[drawnCardHistoryIndex].c)
         let x = Math.floor(Math.random() * gameLog.Deck.length);
@@ -352,11 +352,11 @@
     //   calculate strength else go to next step
     //  or move towards and save remaining moves for next turn -checking if general is still there
     // #themoves
-    
+
     if (shouldGeneralAttack() == 1){
         move(locateHumanGeneral(), enemeyStrongholdCountry(), "All");
     } else {
-      
+
       if (gameLog.togo == '') {
         moveToSaveToGoLocation(gameLog.togo, gameLog.tofrom)
       }
@@ -551,7 +551,7 @@
           break;
         }
         y++;
-      }     
+      }
     }
 
     // act 2
@@ -562,7 +562,7 @@
       let highestContinent = '';
       let highestContinentVal = 0;
       let nContinents = [];
-      
+
       Object.keys(dat).forEach(cont => {
         if (dat[cont] >= highestContinentVal){
           if (highestContinent != ''){
@@ -614,7 +614,7 @@
 
         // check if in valid countinent
         if (places.includes(COUNTRY_CONTINENT[country])) {
-        
+
           let strengtha = 0; // Any unit occupies space in territory count
           let units = gameLog.gameMap[country];
             units = units.split("-");
@@ -623,7 +623,7 @@
                 strengtha += 1;
               } else if (unit == "eG"){
                 strengtha += 10;
-              } 
+              }
             });
 
             if ((compStrength[COUNTRY_CONTINENT[country]]) == null) {
@@ -633,7 +633,7 @@
               } else {
                 compCountryStr[country] += strengtha;
               }
-              
+
             } else {
               compStrength[COUNTRY_CONTINENT[country]] += strengtha;
               if ((compCountryStr[country]) == null) {
@@ -650,7 +650,7 @@
 
         // check if in valid countinent
           if (places.includes(COUNTRY_CONTINENT[country])) {
-          
+
           let strengtha = 0; // Any unit occupies space in territory count
           let units = gameLog.gameMap[country];
             units = units.split("-");
@@ -659,7 +659,7 @@
                 strengtha += 1;
               } else if (unit == "G"){
                 strengtha += 10;
-              } 
+              }
             });
 
             if ((huStrength[country]) == null) {
@@ -703,7 +703,7 @@
           // Get all other continents
         }
       });
-      
+
     }
 
     function who_attack(loc, pwr_nded){
@@ -720,7 +720,7 @@
                 strengtha += 1;
               } else if (unit == "eG"){
                 strengtha += 10;
-              } 
+              }
             });
           if (strengtha > pwr_nded) {
             eligable.push(country)
@@ -755,7 +755,7 @@
         let eg_child = 0;
         let g = document.getElementById('UnitsGenerals');
         let g_child = 0;
-        
+
         // loop through units and add it
         units.forEach(unit => {
           switch(unit) {
@@ -785,7 +785,7 @@
               break;
             default:
           }
-          
+
         });
         }
       });
@@ -821,7 +821,7 @@
               let eg_child = 0;
               let g = document.getElementById('UnitsGenerals');
               let g_child = 0;
-              
+
               // loop through units and add it
               units.forEach(unit => {
                 switch(unit) {
@@ -851,7 +851,7 @@
                     break;
                   default:
                 }
-                
+
               });
             }
       }
@@ -1081,16 +1081,16 @@
 
                                     });
                                   }
-                                } 
+                                }
                                 });
-                              } 
-                            } 
+                              }
+                            }
                           });
                         }
-                      } 
+                      }
                   });
                 }
-              } 
+              }
             });
           }
         }
@@ -1098,7 +1098,7 @@
       return path
     }
 
-  
+
     // #act 2 - see nearest element and attack it with nearest stronger element 20/100
 
     // act 1.2 - scan nearby 2nd strength-
@@ -1162,7 +1162,7 @@
           let eg_child = 0;
           let g = document.getElementById('UnitsGenerals');
           let g_child = 0;
-          
+
           // loop through units and add it
           units.forEach(unit => {
             switch(unit) {
@@ -1192,12 +1192,12 @@
                 break;
               default:
             }
-            
+
           });
         }
       });
 
-      infantryStart = 0; 
+      infantryStart = 0;
       generalsStart = 0;
       artilleryStart = 0;
       territoriesSetStart = 0;
@@ -1296,7 +1296,7 @@
       else if ((infantryStart != 0 || generalsStart != 0 || artilleryStart != 0) && territoriesSetStart == 0) {
         document.getElementById('unitsRemaining').style.display = 'inherit';
         if (x1 == 1) {
-        pubAlert('Territories set, now place units');
+        pubAlert('Territories set, now place units on territories');
           x1 = 0
         }
         //pubAlert('Place all units to start');
@@ -2418,17 +2418,17 @@ body {
 #an1 {
   animation: fadeIn 0.1s ease-in both;
   color:chocolate;
-} 
+}
 
 #an2 {
   animation: fadeIn 0.4s ease-in both;
   color:aquamarine;
-} 
+}
 
 #an3 {
   animation: fadeIn 0.9s ease-in both;
   color: #888b60;
-} 
+}
 
 @keyframes fadeIn {
 	from {
