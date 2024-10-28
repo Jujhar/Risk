@@ -1412,6 +1412,53 @@
 
             if (strength > opposition) {
               won = 1;
+            } else if (strength == opposition) {
+
+                // if win
+                if (Math.random() > 0.5) {
+                  pubAlert('You won draw');
+                  won = 1;
+                  return;
+                }
+
+                // if lose
+                pubAlert('You lost draw');
+                document.getElementById(selectionTerritory).innerHTML = '';
+                turnCount--;
+
+                // Remove from log
+                selection.forEach(item => {
+                  if (item.innerHTML.includes("/unit.png")) {
+                    if (gameLog.gameMap[selectionTerritory].includes("-i")) {
+                      gameLog.gameMap[selectionTerritory] =
+                      gameLog.gameMap[selectionTerritory].replace('-i','');
+                    } else {
+                      gameLog.gameMap[selectionTerritory] =
+                      gameLog.gameMap[selectionTerritory].replace('i','');
+                    }
+                  }
+                  else if (item.innerHTML.includes("artillery.png")) {
+                    if (gameLog.gameMap[selectionTerritory].includes("-A")) {
+                      gameLog.gameMap[selectionTerritory] =
+                      gameLog.gameMap[selectionTerritory].replace('-A','');
+                    } else {
+                      gameLog.gameMap[selectionTerritory] =
+                      gameLog.gameMap[selectionTerritory].replace('A','');
+                    }
+                  }
+                  else if (item.innerHTML.includes("s/general.webp")) {
+                    if (gameLog.gameMap[selectionTerritory].includes("-G")) {
+                      gameLog.gameMap[selectionTerritory] =
+                      gameLog.gameMap[selectionTerritory].replace('-G','');
+                    } else {
+                      gameLog.gameMap[selectionTerritory] =
+                      gameLog.gameMap[selectionTerritory].replace('G','');
+                    }
+                  }
+                });
+
+                selection = [];
+                selectionTerritory = 'x';
             }
           })
 
