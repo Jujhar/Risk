@@ -75,14 +75,14 @@
 
         if (state == 'none') {
           document.getElementById('none').innerHTML = "1";
-          result = 'You rolled 1';
+          result = 'You rolled 1, press ˹space˺ to continue';
           die = 1;
           document.getElementById(state).classList.add('selected')
         }
 
         else {
           document.getElementById(state).classList.add('selected')
-          result = 'You rolled ' + document.getElementById(state).childNodes[0].innerHTML;
+          result = 'You rolled ' + document.getElementById(state).childNodes[0].innerHTML + ', press ˹space˺ to continue';
           die = parseInt(document.getElementById(state).childNodes[0].innerHTML);
         }
 

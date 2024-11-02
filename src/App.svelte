@@ -295,7 +295,7 @@
       }
 
       setTimeout(() => {
-        pubAlert("You rolled " + turnCount);
+        pubAlert("You rolled " + turnCount + ", press ˹space˺ to continue");
       }, 2000);
     }
   }
@@ -1296,7 +1296,7 @@
       else if ((infantryStart != 0 || generalsStart != 0 || artilleryStart != 0) && territoriesSetStart == 0) {
         document.getElementById('unitsRemaining').style.display = 'inherit';
         if (x1 == 1) {
-        pubAlert('Territories set, now place units on territories');
+        pubAlert('Territories set, now place units on your land');
           x1 = 0
         }
         //pubAlert('Place all units to start');
