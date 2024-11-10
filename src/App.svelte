@@ -1906,7 +1906,7 @@
 <body>
 
 <!-- Start screen -->
-<div id="setup_menu" style="background-color: #88dc88; opacity: 0.9">
+<div id="setup_menu" style="background-img: url('pieces/board.jpg'); background-color: #88dc88; opacity: 0.9">
   <h1><b>Game Setup</b></h1>
 
   <section id="setup_menu_qck_button">
