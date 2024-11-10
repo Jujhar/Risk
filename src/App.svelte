@@ -303,8 +303,9 @@
   let computerPrevTurn = '';
   let computerPrevTurnDest = '';
   function computerTurn(){
-    let computerRoll = Math.floor(Math.random() * 7);
 
+    let computerRoll = Math.floor(Math.random() * 7);
+    pubAlert("Rolled " + computerRoll + "...Thinking (about " + computerPrevTurn + ")");
     // preact - if on process to a conquest 1/2
     // check if item changed
     // {result - proceed}
@@ -353,15 +354,19 @@
     //  or move towards and save remaining moves for next turn -checking if general is still there
     // #themoves
 
-    if (shouldGeneralAttack() == 1){
+    if (computerMove == 'act-0'){
         move(locateHumanGeneral(), enemeyStrongholdCountry(), "All");
     } else {
 
       if (gameLog.togo == '') {
         moveToSaveToGoLocation(gameLog.togo, gameLog.tofrom)
       }
+      // ?? TODO
       let attack_it = get_attack_scope(comp_strongheld_continent(), 'level-1');
+      pubAlert("ENEMY needs something to do...."+ attack_it + "?");
     };
+
+
 
     function shouldGeneralAttack() {
       let stronghold = 0;
@@ -1110,7 +1115,8 @@
     // TODO logic if computer wins
 
     // TODO fire cannons if any one nearby, on turn end
-  }
+
+  } // END OF ENEMY MOVE
 
   // calc the amount of units on a tile
   function calculateStrength(inhabitants) {
