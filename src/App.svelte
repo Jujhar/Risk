@@ -305,6 +305,9 @@
   function computerTurn(){
 
     let computerRoll = Math.floor(Math.random() * 7);
+    if (computerRoll == 0) {
+      computerRoll++;
+    }
     pubAlert("Rolled " + computerRoll + "...Thinking (about " + computerPrevTurn + ")");
     // preact - if on process to a conquest 1/2
     // check if item changed
@@ -1906,7 +1909,7 @@
 <body>
 
 <!-- Start screen -->
-<div id="setup_menu" style="background-img: url('pieces/board.jpg'); background-color: #88dc88; opacity: 0.9">
+<div id="setup_menu" style="background-img: url('https://jujhar.github.io/Risk/pieces/board.jpg'); background-color: #88dc88; opacity: 0.9">
   <h1><b>Game Setup</b></h1>
 
   <section id="setup_menu_qck_button">
