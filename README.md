@@ -1,4 +1,4 @@
-<em>Work In Progress - Unfortunately only basic movement is available, attack logic and multiplayer play still todo.</em>
+<em>Work In Progress</em>
 # Risk
 
 A single player / multiplayer online board game.
@@ -11,7 +11,7 @@ copy contents of "index.html.dev" to "index.html"
 
 $ vite dev
 
-## Basic rules
+## Gameplay
 ![image](https://user-images.githubusercontent.com/5521110/204102056-403e519b-bc14-4f45-8e49-a82d5446fb0b.png)
 
 At the beginning of the turn roll the dice (seen above) by quickly selecting a number using keypad to see how many movements you can advance.
@@ -19,7 +19,7 @@ At the beginning of the turn roll the dice (seen above) by quickly selecting a n
 Dotted water ways between countries just show where the adjecent moves are and make no difference to the movement of spaces consumed.
 
 ```
-For example if you roll 3 you could pass 1 person up 3 countries,
+If you roll 3 for example you could pass 1 person up 3 countries,
 
 or you can alternatively move 2 groups of people - 1 up 1 country and another up 2
 
