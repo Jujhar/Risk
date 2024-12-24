@@ -2154,6 +2154,7 @@ font-size: 2em;">
   <Pieces {handleClick} />
 
   <!-- Regions -->
+  <section id="regions">
   <!-- America -->
   <div id="Alaska" class="tile" style="position: absolute; height:200px; width:300px; left:0px; top:390px; background-color: rgba(250,20,20,0.2);"
       on:click={move}>
@@ -2329,6 +2330,7 @@ font-size: 2em;">
       on:click={move}>
   </div>
   <!-- oceana -->
+</section>
 </body>
 </html>
 
@@ -2368,6 +2370,10 @@ body {
   border-radius: 50px 20px;
   border: 1px solid white;
   color: silver;
+}
+
+#regions div:hover {
+  background-image: url('https://jujhar.github.io/Risk/pieces/hover.png');
 }
 
 #setup_menu {
