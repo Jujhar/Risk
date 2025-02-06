@@ -171,7 +171,9 @@
   /** click-movin */
   function handleClick() {
     if ((selectionTerritory == 'x' || selectionTerritory == this.parentElement.id) &&
-          infantryStart == 0 && generalsStart == 0 && artilleryStart == 0) {
+          infantryStart == 0 && generalsStart == 0 && artilleryStart == 0 && 
+          (!this.innerHTML.includes("enemy")) && (!this.innerHTML.includes("-at")) && 
+          (!this.innerHTML.includes("-al"))) {
       selectionTerritory = this.parentElement.id
       this.style.backgroundColor = '#007d80'
       selection.push(this);
