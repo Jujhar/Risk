@@ -157,10 +157,10 @@
 
   let x1 = 1 // run only once
 
-  // init
+  // init 
   gameSetup('dev');
 
-  // display alert message
+  /** display alert message */
   function pubAlert(x) {
     alert = x;
     setTimeout(() => {
@@ -168,7 +168,7 @@
     }, 2000);
   }
 
-  // click-movin
+  /** click-movin */
   function handleClick() {
     if ((selectionTerritory == 'x' || selectionTerritory == this.parentElement.id) &&
           infantryStart == 0 && generalsStart == 0 && artilleryStart == 0) {
@@ -449,7 +449,7 @@
       return return_country;
     }
 
-    // Returns highest area to attack
+    /** Returns highest area to attack */
     function locateHumanGeneral() {
       let return_country = '';
       let enemyStronghold = 0;
@@ -499,7 +499,7 @@
       return return_country;
     }
 
-    // act move to pre
+    /** act move to pre */
     function moveToSaveToGoLocation(togo, tofrom) {
 
       let attacked = 0;
@@ -869,8 +869,11 @@
       }
     }
 
-    // default example = getDistance("Afganistan", "China", 1));
-    //                   > Ural,Ukraine
+    /**
+    * default example = getDistance("Afganistan", "China", 1));
+    * 
+    *                   > Ural,Ukraine
+    */
     function getDistance(to, from) {
       let level = 0;
       let path = [];
@@ -1121,7 +1124,8 @@
 
   } // END OF ENEMY MOVE
 
-  // calc the amount of units on a tile
+  // UNUSED!
+  /** calc the amount of units on a tile */
   function calculateStrength(inhabitants) {
     let x = (((inhabitants.match(new RegExp("eG", "g")) || []).length * 10) +
     ((inhabitants.match(new RegExp("ei", "g")) || []).length));
@@ -1133,7 +1137,7 @@
     document.getElementById('setup_menu').style.backgroundColor = "#65c36580";
   }
 
-  // load gamefile
+  /** load gamefile */
   const onFileSelected =(e)=>{
 	  let file = e.target.files[0];
     let reader = new FileReader();
@@ -1565,7 +1569,7 @@
       }
   }
 
-  // inital piece placements
+  /** inital piece placements */
   function computerBoardCheck() {
 
     // only place one unit per turn
@@ -1862,7 +1866,7 @@
     return count;
   }
 
-  // Save gamelog to file
+  /** Save gamelog to file */
   function downloadSaveFile() {
     // Add date to file name
     var date = new Date();var dd = String(date.getDate()).padStart(2, '0');
@@ -1880,7 +1884,7 @@
     pubAlert("Save functionality is not available game setup is underway.")
 	}
 
-  // Save game online
+  /** Save game online */
   async function generateSaveFile () {
     var url = 'https://rebabre.com/app/risk/save.php';
 

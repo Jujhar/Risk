@@ -15,7 +15,7 @@
   let boxUp = 6;
   let boxDown = 3;
 
-  // For initialization of dice positions
+  /** For initialization of dice positions */
   function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
