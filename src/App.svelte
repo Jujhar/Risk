@@ -1921,7 +1921,7 @@
 
 <!-- Start screen -->
 <div id="setup_menu" style="background-img: url('https://jujhar.github.io/Risk/pieces/board.jpg'); background-color: #88dc88; opacity: 0.9">
-  <h1><b>Game Setup</b></h1>
+  <h1><b class='font-selamet'>Game Setup</b></h1>
 
   <section id="setup_menu_qck_button">
   <span class='nrmtx' on:click={()=>{gameSetup('dev')}}><i>Dev</i></span>&nbsp;&nbsp;
@@ -1931,10 +1931,10 @@
   <br>
 
   <input bind:group={localPlay} value={false} type="radio" name="age" checked>
-  <label for="age1">vs computer &nbsp;</label>
+  <label for="age1" style='font-size:0.3em'>vs computer &nbsp;</label>
 
   <input bind:group={localPlay} name="scoops" value={true} type="radio">
-  <label for="age2">vs local</label><br>
+  <label for="age2" style='font-size:0.3em'>vs local</label><br>
 
   <br>
   <br>
@@ -2014,7 +2014,7 @@
 
 
   <button
-    class="button"
+    class="font-selamet button"
     on:click={doneSetup}>
     Done
   </button>
@@ -2383,6 +2383,10 @@ body {
   color: silver;
 }
 
+.font-selamet {
+  font-family: 'Selamet Lebaran';
+}
+
 #regions div:hover {
   background-image: url('https://jujhar.github.io/Risk/pieces/hover.png');
 }
@@ -2517,6 +2521,11 @@ body {
 @font-face {
   font-family: 'Public Pixel';
   src: url('PublicPixel.ttf');
+}
+
+@font-face {
+  font-family: 'Selamet Lebaran';
+  src: url('SelametLebaran.otf');
 }
 
 </style>
