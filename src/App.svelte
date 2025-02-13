@@ -2,7 +2,8 @@
   import Dice from './Dice.svelte';
   import UnitPlacements from './UnitPlacements.svelte';
   import Pieces from './Board/Pieces.svelte';
-  import { NEIGHBOURING_STATES, COUNTRY_CONTINENT } from './Board/MapMovement.svelte';
+  import { NEIGHBOURING_STATES, 
+           COUNTRY_CONTINENT } from './Board/MapMovement.svelte';
 
   import { onMount } from 'svelte';
   onMount(() => {
@@ -53,12 +54,16 @@
     settings: {},
     drawnCardHistory: [{c:"", u:""}],
     drawnCardHistoryP2: [{c:"", u:""}],
+   
     /**
-      gameMap permitted values legend
-      "G,A,i,eG,eA,ei"
-       (G - General,
-        eG - enemy General,
-        A - cannon)
+      permitted values 
+
+      G - General,
+      eG - Enemy General,
+      A - cannon,
+      i - foot soldier,
+      eA,
+      ei
     **/
     gameMap: {'Alaska':'',
               'Northwest Territory':'',
@@ -104,9 +109,9 @@
               'Western Australia':''},
     diceRoll: 0,
     turn: 'player 1', // 'computer'
-    togo: '', // move in progress but not enough dice roll
+    togo: '', // last act in progress but not enough dice roll
     //..(moveToSaveToGoLocation())
-    tofrom: '', // ibid. ..(moveToSaveToGoLocation())
+    tofrom: '', // (moveFromSaveToGoLocation())
     Deck: [{c:"Alaska", u:"i"},
            {c:"Northwest Territory", u:"A"},
            {c:"Alberta", u:"A"},
@@ -155,7 +160,7 @@
   let saveFileName = null;
   let fileinput;
 
-  let x1 = 1 // run only once
+  let x1 = 1 // run only once bug
 
   // init 
   gameSetup('dev');
@@ -1314,7 +1319,7 @@
         pubAlert('Territories set, now place units on your land');
           x1 = 0
         }
-        //pubAlert('Place all units to start');
+        // pubAlert('Place all units to start');
         setTimeout(() => {
           document.getElementById('placementsDone').style.visibility = "hidden";
         }, 7000);
@@ -2513,4 +2518,5 @@ body {
   font-family: 'Public Pixel';
   src: url('PublicPixel.ttf');
 }
+
 </style>
