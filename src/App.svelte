@@ -2029,7 +2029,7 @@
 
 <!-- Starting turn -->
 <div id="starting_turn">
-  <h1><b>
+  <h1><b style="font-family:monospace;">
   {#if !localPlay}
     Roll dice to start
   {:else}
@@ -2093,6 +2093,7 @@
 
 
 <div style="color: white;
+font-family: 'Selamet Lebaran';
 text-shadow: -11px 20px 20px black;
 margin: 0 auto;
 position: fixed;
