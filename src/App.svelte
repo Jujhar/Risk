@@ -1346,7 +1346,7 @@
               document.body.style.cursor = `url('pieces/artillery-c.png'), auto`;
             }
             else if (generalsStart != 0) {
-              document.body.style.cursor = `url('pieces/artillery-c.png'), auto`;
+              document.body.style.cursor = `url('pieces/general-c.png'), auto`;
             }
             else {
               document.body.style.cursor = `inherit`;
